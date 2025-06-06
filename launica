@@ -1,0 +1,118 @@
+para-fio.zi<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Fio 💖</title>
+
+  <!-- Fuente romántica -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Segoe+UI&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff0f5;
+      background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+      color: #333;
+      animation: fadeIn 2s ease-in;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px;
+      background-color: #ffffffcc;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      color: #d63384;
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style-type: "💗 ";
+      padding-left: 20px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      text-align: center;
+      color: #888;
+    }
+
+    .foto {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .foto img {
+      width: 220px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    audio {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌸 Para ti, Fio 🌸</h1>
+
+    <!-- Imagen -->
+    <div class="foto">
+      <img src="foto-fio.jpeg" alt="Fio" />
+    </div>
+
+    <!-- Reproductor de música -->
+    <audio controls autoplay loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+      Tu navegador no soporta el audio.
+    </audio>
+    <p style="text-align:center; font-size: 0.9em;">(Reemplaza con el enlace oficial de la canción de Ricardo Montaner)</p>
+
+    <!-- Secciones del mensaje -->
+    <h2>Eres mi prioridad</h2>
+    <p>No es una página común, ni un regalo cualquiera. Es un rincón donde dejo claro que tú, Fio, eres mi prioridad... siempre lo serás.</p>
+
+    <h2>Lo que siento por ti</h2>
+    <ul>
+      <li>Me inspiras todos los días</li>
+      <li>Tu forma de ser me llena de paz y alegría</li>
+      <li>Eres todo lo que buscaba y más</li>
+    </ul>
+
+    <h2>Lo que más quiero</h2>
+    <p>Verte feliz, sonreír contigo, cuidarte en los días buenos y en los difíciles. Porque no solo me importas, Fio... me importas <strong>más que nada</strong>.</p>
+
+    <h2>Para que nunca lo olvides</h2>
+    <p>Si alguna vez lo dudas, vuelve aquí. Esta página no desaparece... como lo que siento por ti.</p>
+
+    <footer>
+      Con todo mi cariño,<br>
+      tu fan número uno 💌<br>
+      &copy; 2025 Solo para Fio
+    </footer>
+  </div>
+
+</body>
+</html>
