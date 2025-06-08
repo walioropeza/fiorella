@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Para Fio 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -67,6 +67,14 @@
       width: 220px;
       border-radius: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .foto img.expandida {
+      transform: scale(2);
+      z-index: 999;
+      position: relative;
     }
 
     audio {
@@ -196,20 +204,6 @@
       text-decoration: underline;
     }
 
-    /* Estilo para galería */
-    #galeria img {
-      width: 120px;
-      margin: 5px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    #galeria img:hover {
-      transform: scale(1.1);
-    }
-
-    /* Fondo nocturno */
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #0b0c2a;
@@ -227,18 +221,21 @@
     <h1>🌸 Para ti, Fio 🌸</h1>
 
     <div class="foto">
-      <img src="fotos/fofo1.jpg" alt="Fio" />
+      <img src="fotosfio/foto1.jpg" alt="Fio" onclick="this.classList.toggle('expandida')" />
     </div>
 
     <div class="frase" id="frase"></div>
 
+    <!-- Música principal (autoplay) -->
     <audio controls autoplay loop>
       <source src="musica/SoloPorUnBeso.mp3" type="audio/mp3" />
       Tu navegador no soporta audio.
     </audio>
 
+    <!-- Música secundaria (manual) -->
     <audio controls>
-      <source src="musica/CristianCastro-LloviendoEstrellas.mp3" type="audio/mp3" />
+      <source src="musica/Lloviendo Estrellas.mp3" type="audio/mp3" />
+      Tu navegador no soporta audio.
     </audio>
 
     <h2>Eres mi prioridad</h2>
@@ -285,18 +282,15 @@
   </div>
 
   <script>
-    // Frases aleatorias
     const frases = [
       "Tu sonrisa ilumina mi mundo",
       "Eres mi lugar favorito",
       "Nada se compara a ti",
       "Contigo todo tiene sentido",
-      "Eres mi destino y mi sueño",
+      "Eres mi destino y mi sueño"
     ];
-    document.getElementById("frase").textContent =
-      frases[Math.floor(Math.random() * frases.length)];
+    document.getElementById("frase").textContent = frases[Math.floor(Math.random() * frases.length)];
 
-    // Corazones flotantes al hacer clic
     function crearCorazones() {
       for (let i = 0; i < 20; i++) {
         const c = document.createElement("div");
@@ -308,19 +302,23 @@
       }
     }
 
-    // Mostrar secreto
     function mostrarSecreto() {
       document.getElementById("secreto").style.display = "block";
     }
 
-    // Carrusel de fotos
+    // Galería de fotos
     const galeria = document.getElementById("galeria");
     for (let i = 1; i <= 4; i++) {
       const img = document.createElement("img");
-      img.src = `fotos/fofo${i}.jpg`;
-      img.alt = `Foto ${i}`;
+      img.src = `fotosfio/foto${i}.jpg`;
+      img.style.width = "90px";
+      img.style.margin = "5px";
+      img.style.borderRadius = "10px";
+      img.style.cursor = "pointer";
+      img.onclick = () => img.classList.toggle('expandida');
       galeria.appendChild(img);
     }
   </script>
 </body>
 </html>
+
