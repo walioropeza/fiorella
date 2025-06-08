@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Para Fio 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -72,6 +72,7 @@
     audio {
       display: block;
       margin: 20px auto;
+      max-width: 100%;
     }
 
     .typewriter {
@@ -196,25 +197,6 @@
       text-decoration: underline;
     }
 
-    /* Galería de fotos (miniaturas) */
-    #galeria {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    #galeria img {
-      width: 90px;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    #galeria img:hover {
-      transform: scale(1.1);
-    }
-
     /* Fondo nocturno */
     @media (prefers-color-scheme: dark) {
       body {
@@ -222,6 +204,26 @@
         background-image: none;
         color: #eee;
       }
+    }
+
+    /* Estilos para galería de fotos debajo de "Momentos contigo" */
+    #galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    #galeria img {
+      width: 90px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #galeria img:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -239,16 +241,18 @@
     <div class="frase" id="frase"></div>
 
     <audio controls autoplay loop>
-      <source src="musica/SoloPorUnBeso.mp3" type="audio/mp3">
+      <source src="musica/SoloPorUnBeso.mp3" type="audio/mp3" />
       Tu navegador no soporta audio.
     </audio>
 
     <audio controls>
-      <source src="musica/CristianCastro-LloviendoEstrellas.mp3" type="audio/mp3">
+      <source src="musica/CristianCastro-LloviendoEstrellas.mp3" type="audio/mp3" />
     </audio>
 
     <h2>Eres mi prioridad</h2>
-    <p>No es una página común, ni un regalo cualquiera. Es un rincón donde dejo claro que tú, Fio, eres mi prioridad... siempre lo serás.</p>
+    <p>
+      No es una página común, ni un regalo cualquiera. Es un rincón donde dejo claro que tú, Fio, eres mi prioridad... siempre lo serás.
+    </p>
 
     <h2>Lo que siento por ti</h2>
     <ul>
@@ -258,7 +262,10 @@
     </ul>
 
     <h2>Lo que más quiero</h2>
-    <p>Verte feliz, sonreír contigo, cuidarte en los días buenos y en los difíciles. Porque no solo me importas, Fio... me importas <strong>más que nada</strong>.</p>
+    <p>
+      Verte feliz, sonreír contigo, cuidarte en los días buenos y en los difíciles. Porque no solo me importas, Fio... me importas
+      <strong>más que nada</strong>.
+    </p>
 
     <h2>Para que nunca lo olvides</h2>
     <div class="typewriter">Si alguna vez lo dudas, vuelve aquí... siempre estaré para ti.</div>
@@ -269,7 +276,6 @@
       <div><strong>30/05/2025:</strong> Primera vez que la vi en persona</div>
     </div>
 
-    <!-- Aquí va el bloque "Momentos contigo" con la galería -->
     <div class="foto">
       <h2>Momentos contigo</h2>
       <div id="galeria"></div>
@@ -285,8 +291,8 @@
     </div>
 
     <footer style="text-align:center; margin-top: 40px; font-size: 0.9em;">
-      Con todo mi cariño,<br>
-      tu fan número uno titi 💌<br>
+      Con todo mi cariño,<br />
+      tu fan número uno titi 💌<br />
       &copy; 2025 Solo para Fio
     </footer>
   </div>
@@ -298,28 +304,28 @@
       "Eres mi lugar favorito",
       "Nada se compara a ti",
       "Contigo todo tiene sentido",
-      "Eres mi destino y mi sueño"
+      "Eres mi destino y mi sueño",
     ];
     document.getElementById("frase").textContent = frases[Math.floor(Math.random() * frases.length)];
 
     // Corazones flotantes al hacer clic
     function crearCorazones() {
       for (let i = 0; i < 20; i++) {
-        const c = document.createElement('div');
-        c.className = 'corazon';
-        c.style.left = Math.random() * 100 + 'vw';
-        c.style.top = '100vh';
-        document.getElementById('corazones').appendChild(c);
+        const c = document.createElement("div");
+        c.className = "corazon";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "100vh";
+        document.getElementById("corazones").appendChild(c);
         setTimeout(() => c.remove(), 6000);
       }
     }
 
     // Mostrar secreto
     function mostrarSecreto() {
-      document.getElementById('secreto').style.display = 'block';
+      document.getElementById("secreto").style.display = "block";
     }
 
-    // Carrusel de fotos (galería)
+    // Carrusel de fotos
     const galeria = document.getElementById("galeria");
     for (let i = 1; i <= 10; i++) {
       const img = document.createElement("img");
