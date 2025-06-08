@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -214,8 +215,7 @@
     <h1>🌸 Para ti, Fio 🌸</h1>
 
     <div class="foto">
-      <!-- Imagen principal corregida -->
-      <img src="fotos/fofo1.jpeg" alt="Fio" />
+      <img src="fotos/fofo1.jpg" alt="Fio" />
     </div>
 
     <div class="frase" id="frase"></div>
@@ -300,11 +300,11 @@
       document.getElementById('secreto').style.display = 'block';
     }
 
-    // Carrusel de fotos corregido con 'fofo' y extensión jpeg
+    // Carrusel de fotos con extensión .jpg
     const galeria = document.getElementById("galeria");
     for (let i = 1; i <= 10; i++) {
       const img = document.createElement("img");
-      img.src = `fotos/fofo${i}.jpeg`;
+      img.src = `fotos/fofo${i}.jpg`;
       img.style.width = "90px";
       img.style.margin = "5px";
       img.style.borderRadius = "10px";
