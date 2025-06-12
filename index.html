@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>En pausa por ahora...</title>
-
-  <!-- Script de Plausible para registrar visitas anónimas -->
   <script defer data-domain="walioropeza.github.io/fiorella" src="https://plausible.io/js/script.js"></script>
-
   <style>
     body {
       margin: 0;
@@ -53,5 +50,20 @@
     <p>No siempre el que se aleja lo hace porque no siente, a veces se aleja porque ya no hay lugar donde quedarse..</p>
     <div class="small-note">Gracias por haber estado aquí.</div>
   </div>
+
+  <!-- Música de fondo (oculta) -->
+  <audio id="musicaFondo" src="musica/Luis Miguel - Fría Como El Viento.mp3" autoplay loop hidden></audio>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const musica = document.getElementById("musicaFondo");
+      const iniciar = () => {
+        musica.play().catch(() => {});
+        document.removeEventListener("click", iniciar);
+      };
+      document.addEventListener("click", iniciar);
+    });
+  </script>
 </body>
 </html>
+
