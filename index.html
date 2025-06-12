@@ -1,4 +1,3 @@
-<!-- ESTE ES TU NUEVO index.html con MODO MANTENIMIENTO -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,8 +6,6 @@
   <title>Para Fio 💖</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
-    /* --- ESTILOS ORIGINALES TUYOS --- */
-    /* (sin cambios aquí) */
     body {
       margin: 0;
       padding: 0;
@@ -19,47 +16,321 @@
       overflow-x: hidden;
     }
 
-    /* --- ESTILOS DEL MODO MANTENIMIENTO --- */
-    #mantenimiento {
+    .intro {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100vh;
-      background: linear-gradient(145deg, #ffdee9, #b5fffc);
+      background-color: #d63384;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      z-index: 999999;
-      font-family: 'Great Vibes', cursive;
       font-size: 2em;
-      color: #d63384;
-      padding: 40px;
-      box-sizing: border-box;
+      z-index: 9999;
+      animation: desaparecer 3s forwards;
     }
 
-    /* ... tus otros estilos siguen igual abajo ... */
-    /* (no muestro aquí para no duplicar tanto) */
+    @keyframes desaparecer {
+      0%, 50% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #ffffffcc;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #d63384;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    ul {
+      list-style-type: "💗 ";
+      padding-left: 20px;
+    }
+
+    .foto {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .foto img {
+      width: 220px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .foto img.expandida {
+      transform: scale(2);
+      z-index: 999;
+      position: relative;
+    }
+
+    audio {
+      display: block;
+      margin: 20px auto;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #d63384;
+      white-space: nowrap;
+      animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #d63384; }
+    }
+
+    .corazones {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .corazon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: flotar 6s infinite;
+    }
+
+    .corazon::before,
+    .corazon::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .corazon::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .corazon::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    .frase {
+      text-align: center;
+      font-style: italic;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .tequiero-btn {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .linea-tiempo {
+      margin-top: 30px;
+      padding: 10px;
+      border-left: 4px solid #d63384;
+    }
+
+    .linea-tiempo div {
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+
+    .carta {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5em;
+      text-align: center;
+      background-color: #fff7f9;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #ccc;
+      margin-top: 30px;
+    }
+
+    .secreto {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #d63384;
+    }
+
+    .btn-secreto {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #0b0c2a;
+        background-image: none;
+        color: #eee;
+      }
+    }
+
+    /* Ocultar el audio automático */
+    #musicaAuto {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <!-- MENSAJE DE MANTENIMIENTO -->
-  <div id="mantenimiento">
-    💌 “Trabajando en algo hermoso para ti... porque esto lo merece.”<br><br>
-    — Volvé pronto, t.q.m Fio 💖
-  </div>
-
-  <!-- TODO TU CONTENIDO QUEDA ABAJO, SIN CAMBIOS -->
   <div class="intro">Solo por un beso... 💋</div>
   <div class="corazones" id="corazones"></div>
+
   <div class="container">
-    <!-- ... (todo tu contenido igual que antes, sin tocar) ... -->
+    <h1>🌸 Para ti, Fio 🌸</h1>
+
+    <div class="foto">
+      <img src="fotosfio/foto1.jpg" alt="Fio" onclick="this.classList.toggle('expandida')" />
+    </div>
+
+    <div class="frase" id="frase"></div>
+
+    <!-- Música principal (autoplay oculta) -->
+    <audio id="musicaAuto" src="musica/SoloPorUnBeso.mp3" loop></audio>
+
+    <!-- Música secundaria (manual y visible) -->
+    <audio controls>
+      <source src="musica/Lloviendo Estrellas.mp3" type="audio/mp3" />
+      Tu navegador no soporta audio.
+    </audio>
+
+    <h2>Eres mi prioridad</h2>
+    <p>No es una página común, ni un regalo cualquiera. Es un rincón donde dejo claro que tú, Fio, eres mi prioridad... siempre lo serás.</p>
+
+    <h2>Lo que siento por ti</h2>
+    <ul>
+      <li>Me inspiras todos los días</li>
+      <li>Tu forma de ser me llena de paz y alegría</li>
+      <li>Eres todo lo que buscaba y más</li>
+    </ul>
+
+    <h2>Lo que más quiero</h2>
+    <p>Verte feliz, sonreír contigo, cuidarte en los días buenos y en los difíciles. Porque no solo me importas, Fio... me importas <strong>más que nada</strong>.</p>
+
+    <h2>Para que nunca lo olvides</h2>
+    <div class="typewriter">Si alguna vez lo dudas, vuelve aquí... siempre estaré para ti.</div>
+
+    <button class="tequiero-btn" onclick="crearCorazones()">Te quiero 💖</button>
+
+    <div class="linea-tiempo">
+      <div><strong>30/05/2025:</strong> Primera vez que la vi en persona</div>
+    </div>
+
+    <div class="foto">
+      <h2>Momentos contigo</h2>
+      <div id="galeria"></div>
+    </div>
+
+    <div class="carta">
+      Querida Fio: Eres la razón por la que sonrío sin motivo. Cada palabra tuya, cada gesto, cada instante... me hace sentir afortunado. Esta página es solo una forma de recordarte cuánto te amo y valoro. Gracias por existir. ❤️
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn-secreto" onclick="mostrarSecreto()">¿Un secreto?</button>
+      <div id="secreto" class="secreto">Tú y yo... hasta viejitos 💫</div>
+    </div>
+
+    <footer style="text-align:center; margin-top: 40px; font-size: 0.9em;">
+      Con todo mi cariño,<br />
+      tu fan número uno titi 💌<br />
+      &copy; 2025 Solo para Fio
+    </footer>
   </div>
 
-  <!-- Script para ocultar TODO menos el mensaje de mantenimiento -->
   <script>
-    // Oculta todo menos el div de mantenimiento
-    document.querySelectorAll("body > *:not(#mantenimiento)").forEach(el => el.style.display = "none");
+    const frases = [
+      "Tu sonrisa ilumina mi mundo",
+      "Eres mi lugar favorito",
+      "Nada se compara a ti",
+      "Contigo todo tiene sentido",
+      "Eres mi destino y mi sueño"
+    ];
+    document.getElementById("frase").textContent = frases[Math.floor(Math.random() * frases.length)];
+
+    function crearCorazones() {
+      for (let i = 0; i < 20; i++) {
+        const c = document.createElement("div");
+        c.className = "corazon";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "100vh";
+        document.getElementById("corazones").appendChild(c);
+        setTimeout(() => c.remove(), 6000);
+      }
+    }
+
+    function mostrarSecreto() {
+      document.getElementById("secreto").style.display = "block";
+    }
+
+    // Galería de fotos
+    const galeria = document.getElementById("galeria");
+    for (let i = 1; i <= 4; i++) {
+      const img = document.createElement("img");
+      img.src = `fotosfio/foto${i}.jpg`;
+      img.style.width = "90px";
+      img.style.margin = "5px";
+      img.style.borderRadius = "10px";
+      img.style.cursor = "pointer";
+      img.onclick = () => img.classList.toggle('expandida');
+      galeria.appendChild(img);
+    }
+
+    // Autoplay de música oculta (solo al hacer clic por primera vez)
+    const musica = document.getElementById("musicaAuto");
+    document.addEventListener("DOMContentLoaded", () => {
+      const iniciarMusica = () => {
+        musica.play().catch(() => {});
+        document.removeEventListener("click", iniciarMusica);
+      };
+      document.addEventListener("click", iniciarMusica);
+    });
   </script>
 </body>
 </html>
+
