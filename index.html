@@ -4,20 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Te pienso tanto</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- CONTADOR PLAUSIBLE -->
+  <!-- Contador de visitas Plausible -->
   <script defer data-domain="walioropeza.github.io/fiorella" src="https://plausible.io/js/script.js"></script>
 
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: 'Quicksand', sans-serif; overflow-x: hidden; background: #fdf0f5; }
     .wrapper { display: flex; flex-direction: column; align-items: center; }
     header { width: 100%; background: #d63384; color: #fff; text-align: center; padding: 80px 20px; }
     header h1 { font-family: 'Dancing Script', cursive; font-size: 3em; }
-    .bloque { background: #ffffffcc; border-radius: 15px; padding: 20px; margin: 30px auto; max-width: 800px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .bloque h2 { font-family: 'Dancing Script', cursive; color: #d63384; font-size: 2em; text-align: center; margin-bottom: 15px; }
-
+    .bloque {
+      background: #ffffffcc;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .bloque h2 {
+      font-family: 'Dancing Script', cursive;
+      color: #d63384;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 15px;
+    }
     .cita-principito {
       background: #fff3f6;
       border-left: 5px solid #d63384;
@@ -45,12 +60,21 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    footer { text-align: center; padding: 20px; color: #999; font-size: 0.9em; }
+    video {
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      width: 100%;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-size: 0.9em;
+    }
   </style>
 </head>
-
-<body onclick="document.getElementById('musicaPrincipito').play()">
+<body>
   <div class="wrapper">
     <header>
       <h1>Para ti..🌸</h1>
@@ -61,6 +85,17 @@
       <p>Esto no es solo una página web. Es una parte de mí que te dejo hoy aquí.</p>
     </section>
 
+    <!-- Sección de video -->
+    <section class="bloque">
+      <h2>Un recuerdo en movimiento 🎥</h2>
+      <video id="videoRecuerdo" poster="videos/poster.jpg">
+        <source src="videos/recuerdo.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+      <p style="text-align:center; font-size: 0.9em; color: #888; margin-top: 10px;">Haz clic en el video para reproducir o pausar</p>
+    </section>
+
+    <!-- Cita del Principito -->
     <section class="bloque cita-principito" id="principito">
       <h2>Será por lo que ahora estoy triste</h2>
       <blockquote>
@@ -80,8 +115,10 @@
     </footer>
   </div>
 
+  <!-- Música (solo al hacer scroll hacia la cita) -->
   <audio id="musicaPrincipito" src="musica/aunque-tu-no-lo-sepas.mp3"></audio>
 
+  <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const musicaPrincipito = document.getElementById('musicaPrincipito');
@@ -98,8 +135,17 @@
       }, { threshold: 0.6 });
 
       observer.observe(cita);
+
+      // Video al hacer clic
+      const video = document.getElementById('videoRecuerdo');
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
     });
   </script>
 </body>
 </html>
-
