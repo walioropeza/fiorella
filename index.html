@@ -11,12 +11,27 @@
   <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Estilos -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: 'Quicksand', sans-serif; overflow-x: hidden; background: #fdf0f5; }
+    html, body { height: 100%; font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
+
+    body {
+      position: relative;
+      background: url('fondo/mi-fondo.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .fondo-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 240, 245, 0.7);
+      z-index: -1;
+    }
+
     .wrapper { display: flex; flex-direction: column; align-items: center; }
-    header { width: 100%; background: #d63384; color: #fff; text-align: center; padding: 80px 20px; }
+    header { width: 100%; background: #d63384cc; color: #fff; text-align: center; padding: 80px 20px; border-radius: 15px; margin-top: 20px; }
     header h1 { font-family: 'Dancing Script', cursive; font-size: 3em; }
     .bloque {
       background: #f1bebecc;
@@ -75,6 +90,9 @@
   </style>
 </head>
 <body>
+
+  <div class="fondo-overlay"></div>
+
   <div class="wrapper">
     <header>
       <h1>Para ti aunque no lo sepas..🌸</h1>
@@ -85,21 +103,19 @@
       <p>Esto no es solo una página web cualquiera es una parte de mí que te dejo hoy aquí.</p>
     </section>
 
-    <!-- Sección de video -->
     <section class="bloque">
       <h2>🎥</h2>
       <video id="videoRecuerdo" poster="videos/poster.jpg" loop>
         <source src="videos/recuerdo.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
       </video>
-      <p style="text-align:center; font-size: 0.9em; color: #888; margin-top: 10px;">Haz clic en el video para reproducir o pausar</p>
+      <p style="text-align:center; font-size: 0.9em; color: #888; margin-top: 10px;">Haz clic en el video para reproducir la música y el video</p>
     </section>
 
-    <!-- Cita del Principito -->
     <section class="bloque cita-principito" id="principito">
       <h2>PENSANDO EN TI..</h2>
       <blockquote>
-        <p>“te sigo pensando, te sigo extrañando, y si no te busco no es porque no lo quiera porque ganas no me hacen falta quizas es porque entendí que tú no quieres que lo haga. y no puedo insistir donde no soy deseado y no se puede luchar por alguien que no quiere quedarse no sé si algún día leas esto, quizás no lo veas, pero necesitaba decirlo.. lo que sentí por ti fue real, sincero, limpio. pero seguire adelante, cargando lo bonito, aunque a veces duela y pese más de lo que quisiera....”</p>
+        <p>“te sigo pensando, te sigo extrañando, y si no te busco no es porque no lo quiera porque ganas no me hacen falta quizás es porque entendí que tú no quieres que lo haga. y no puedo insistir donde no soy deseado y no se puede luchar por alguien que no quiere quedarse no sé si algún día leas esto, quizás no lo veas, pero necesitaba decirlo.. lo que sentí por ti fue real, sincero, limpio. pero seguiré adelante, cargando lo bonito, aunque a veces duela y pese más de lo que quisiera....”</p>
       </blockquote>
     </section>
 
@@ -108,34 +124,21 @@
     </footer>
   </div>
 
-  <!-- Música (solo al hacer scroll hacia la cita) -->
-  <audio id="musicaPrincipito" src="musica/aunque-tu-no-lo-sepas.mp3"></audio>
+  <!-- Ruta corregida del audio -->
+  <audio id="musicaPrincipito" src="musica/Keane - Somewhere Only We Know.mp3"></audio>
 
-  <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const musicaPrincipito = document.getElementById('musicaPrincipito');
-      const cita = document.getElementById('principito');
-      let reproducido = false;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !reproducido) {
-            musicaPrincipito.play().catch(() => {});
-            reproducido = true;
-          }
-        });
-      }, { threshold: 0.6 });
-
-      observer.observe(cita);
-
-      // Video al hacer clic
+      const musica = document.getElementById('musicaPrincipito');
       const video = document.getElementById('videoRecuerdo');
+
       video.addEventListener('click', () => {
         if (video.paused) {
           video.play();
+          musica.play().catch(() => {});
         } else {
           video.pause();
+          musica.pause();
         }
       });
     });
