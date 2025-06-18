@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
+    /* Todo tu CSS igual, solo agregué text-shadow para legibilidad */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
 
@@ -32,7 +33,11 @@
 
     .wrapper { display: flex; flex-direction: column; align-items: center; }
     header { width: 100%; background: #d63384cc; color: #fff; text-align: center; padding: 80px 20px; border-radius: 15px; margin-top: 20px; }
-    header h1 { font-family: 'Dancing Script', cursive; font-size: 3em; }
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
     .bloque {
       background: #f1bebecc;
       border-radius: 15px;
@@ -47,6 +52,10 @@
       font-size: 2em;
       text-align: center;
       margin-bottom: 15px;
+    }
+    .bloque p,
+    .cita-principito blockquote p {
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
     }
     .cita-principito {
       background: #fff3f6;
@@ -104,7 +113,7 @@
     </section>
 
     <section class="bloque">
-      <h2>🎥</h2>
+      <h2>tap tap para reproducir 🎥</h2>
       <video id="videoRecuerdo" poster="videos/poster.jpg" loop muted>
         <source src="videos/recuerdo.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
@@ -124,7 +133,7 @@
     </footer>
   </div>
 
-  <!-- Ruta corregida del audio -->
+  <!-- Música independiente -->
   <audio id="musicaPrincipito" src="musica/Keane - Somewhere Only We Know.mp3"></audio>
 
   <script>
@@ -132,16 +141,29 @@
       const musica = document.getElementById('musicaPrincipito');
       const video = document.getElementById('videoRecuerdo');
 
-      video.addEventListener('click', () => {
+      function togglePlay() {
         if (video.paused) {
           video.play();
-          musica.play().catch(() => {});
+          musica.play().catch(() => {
+            // En móviles a veces bloquean el audio, por eso el catch
+            console.log('No se pudo reproducir la música automáticamente');
+          });
         } else {
           video.pause();
           musica.pause();
         }
+      }
+
+      // Escuchar click y touchend para cubrir escritorio y móviles
+      video.addEventListener('click', togglePlay);
+      video.addEventListener('touchend', togglePlay);
+
+      video.addEventListener('ended', () => {
+        musica.pause();
+        musica.currentTime = 0;
       });
     });
   </script>
 </body>
 </html>
+
