@@ -2,169 +2,312 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Te pienso tanto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi jardín secreto para ti</title>
 
-  <!-- Contador de visitas Plausible -->
-  <script defer data-domain="walioropeza.github.io/fiorella" src="https://plausible.io/js/script.js"></script>
+  <!-- Plausible: solo se carga si no estamos en modo autor -->
+  <script>
+    (function(){
+      const isAutor = window.location.search.includes("autor=true");
+      if (!isAutor) {
+        const s = document.createElement("script");
+        s.defer = true;
+        s.setAttribute("data-domain", "walioropeza.github.io/fiorella");
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      }
+    })();
+  </script>
 
-  <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Todo tu CSS igual, solo agregué text-shadow para legibilidad */
+    /* Reset básico */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
-
     body {
-      position: relative;
-      background: url('fondo/mi-fondo.jpg') no-repeat center center fixed;
+      margin: 0;
+      background: url('flores/fondo-floral.jpg') repeat;
       background-size: cover;
+      font-family: 'Quicksand', sans-serif;
+      color: #333;
+      overflow-x: hidden;
     }
-
-    .fondo-overlay {
+    /* Intro animada */
+    .intro {
       position: fixed;
+      inset: 0;
+      background: rgba(255,255,247,0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: florAbriendo 8s ease forwards;
+    }
+    .intro h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5em;
+      color: #b44a75;
+      text-align: center;
+      padding: 0 20px;
+      opacity: 0;
+      animation: textoIntro 4s ease forwards 1s;
+    }
+    @keyframes florAbriendo {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes textoIntro {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    /* Header */
+    header {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 60px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border-radius: 20px;
+      margin: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8em;
+      color: #b44a75;
+      line-height: 1.2;
+    }
+    header p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4em;
+      color: #181516;
+      margin-top: 10px;
+      line-height: 1.3;
+    }
+    /* Secciones */
+    .seccion {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #ffffffcc;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .seccion.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .seccion h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2em;
+      color: #b44a75;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    /* Carrusel con crossfade */
+    .carrusel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      height: 0;
+      padding-bottom: 56.25%; /* relación 16:9; ajustar si es otro ratio */
+    }
+    .carrusel img {
+      position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 240, 245, 0.7);
-      z-index: -1;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
-
-    .wrapper { display: flex; flex-direction: column; align-items: center; }
-    header { width: 100%; background: #d63384cc; color: #fff; text-align: center; padding: 80px 20px; border-radius: 15px; margin-top: 20px; }
-    header h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3em;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    .carrusel img.active {
+      opacity: 1;
     }
-    .bloque {
-      background: #f1bebecc;
-      border-radius: 15px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 800px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .bloque h2 {
-      font-family: 'Dancing Script', cursive;
-      color: #d63384;
-      font-size: 2em;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .bloque p,
-    .cita-principito blockquote p {
-      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
-    }
-    .cita-principito {
-      background: #fff3f6;
-      border-left: 5px solid #d63384;
-      padding: 25px;
-      margin: 50px auto;
-      font-style: italic;
-      color: #a23368;
-      max-width: 800px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(214, 51, 132, 0.2);
-      animation: desvanecer 2.5s ease;
-    }
-    .cita-principito h2 {
-      text-align: center;
-      font-family: 'Dancing Script', cursive;
-      font-size: 2em;
-      margin-bottom: 15px;
-    }
-    .cita-principito blockquote {
-      margin: 0;
-      line-height: 1.6;
-      font-size: 1.05em;
-    }
-    @keyframes desvanecer {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    video {
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
+    /* Galería de video */
+    .galeria video {
       width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: block;
+      margin: 0 auto;
+      transition: transform 0.3s ease;
+      cursor: pointer;
     }
+    .galeria video:hover {
+      transform: scale(1.02);
+    }
+    /* Botón secreto mejorado */
+    .boton-secreto {
+      background: linear-gradient(45deg, #b44a75, #d67aa6);
+      border: none;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border-radius: 30px;
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 3s infinite;
+    }
+    .boton-secreto:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(187, 21, 21, 0.4);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .mensaje-secreto {
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+      font-style: italic;
+      color: #090000;
+      font-size: 1.3em;
+      animation: aparecer 1s ease forwards;
+      line-height: 1.4;
+    }
+    @keyframes aparecer {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    /* Footer */
     footer {
-  text-align: center;
-  padding: 20px;
-  color: #0d0d0d;
-  font-size: 0.9em;
-  text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
-}
-
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #030303;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    footer.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media screen and (max-width: 600px) {
+      header h1 { font-size: 2em; }
+      header p { font-size: 1.2em; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="fondo-overlay"></div>
-
-  <div class="wrapper">
-    <header>
-      <h1>Para ti aunque no lo sepas..🌸</h1>
-    </header>
-
-    <section class="bloque">
-      <h2>aun te pienso</h2>
-      <p>Esto no es solo una página web cualquiera es una parte de mí que te dejo hoy aquí.</p>
-    </section>
-
-    <section class="bloque">
-      <h2>tap tap para reproducir 🎥</h2>
-      <video id="videoRecuerdo" poster="videos/poster.jpg" loop muted>
-        <source src="videos/recuerdo.mp4" type="video/mp4">
-        Tu navegador no soporta video HTML5.
-      </video>
-      <p style="text-align:center; font-size: 0.9em; color: #110101; margin-top: 10px;">Haz clic en el video para reproducir la música y el video</p>
-    </section>
-
-    <section class="bloque cita-principito" id="principito">
-      <h2>PENSANDO EN TI..</h2>
-      <blockquote>
-        <p>“te sigo pensando, te sigo extrañando, y si no te busco no es porque no lo quiera porque ganas no me hacen falta quizás es porque entendí que tú no quieres que lo haga. y no puedo insistir donde no soy deseado y no se puede luchar por alguien que no quiere quedarse no sé si algún día leas esto, quizás no lo veas, pero necesitaba decirlo.. lo que sentí por ti fue real, sincero, limpio. pero seguiré adelante, cargando lo bonito, aunque a veces duela y pese más de lo que quisiera....”</p>
-      </blockquote>
-    </section>
-
-    <footer>
-      <p>De: el titi para fio. &copy; 2025</p>
-    </footer>
+  <!-- Intro animada -->
+  <div class="intro">
+    <h1>dejo este espacio solo para ti, Fio 🌷</h1>
   </div>
 
-  <!-- Música independiente -->
-  <audio id="musicaPrincipito" src="musica/Keane - Somewhere Only We Know.mp3"></audio>
+  <header id="header">
+    <h1>dejo este recuerdo </h1>
+    <p>En esta pagina guarda mi sentir: aunque paresca callado y ausente no dejo de sentir. Si algún día dudas recuerda que eres una mujer increíble.</p>
+  </header>
+
+  <section class="seccion" id="seccion-recuerdos">
+    <h2>🌼 Momentos contigo</h2>
+    <div class="carrusel" id="carrusel">
+      <img src="fotosfio/foto1.jpg" class="active" alt="Foto 1">
+      <img src="fotosfio/foto2.jpg" alt="Foto 2">
+      <img src="fotosfio/foto3.jpg" alt="Foto 3">
+      <img src="fotosfio/foto4.jpg" alt="Foto 4">
+      <!-- Agrega o quita <img> según tus fotos -->
+    </div>
+  </section>
+
+  <section class="seccion" id="seccion-video">
+    <h2>🌿 video cargando ...</h2>
+    <div class="galeria">
+      <video controls src="videos/video1.mp4"></video>
+      <!-- Puedes añadir más videos si quieres -->
+    </div>
+  </section>
+
+  <section class="seccion" id="seccion-regalo">
+    <h2>🌸 Mensaje</h2>
+    <button class="boton-secreto" onclick="activarSecreto()">Haz clic aquí</button>
+    <p id="mensaje" class="mensaje-secreto">
+      nose en que momento paso esto pero ahora no sabemos nada uno del otro y si te preguntas si pienso en ti .. si!!
+      muchas veces quiero saber de ti si estas bien, si estas comiendo, si te estas cuidando, si estas sonriendo, si estas abrigandote al salir, 
+      si te fuiste a chequear y si asi fue como te fue, tantas cosas que quisiera saber de ti.. 
+      y si en algun momento sientes frio quiero que recuerdes mi abrazo calido, sincero y que de alguna manera te reconforte aunque yo no este alli
+      no te busco, no insisto, no aparezco… no porque no quiera, sino porque aceptar tu decisión es también mi forma de protegerme a mí mismo.
+      quiero pensar que lo hiciste porque creíste que era lo mejor para mí, y quizás, en el fondo, lo fue.
+      tal vez de seguir, hubiéramos terminado haciéndonos daño.
+
+      también entendí que aceptar esto fue protegerme, porque aunque te quise más de lo que creí, pensé o sentí,
+      me di cuenta que salir a buscarte sería hacerme daño
+      y aunque me duele no verte, aunque me duele no saber de ti quier que sepas que yo sigo aqui, no soy de los que se van, sigo aqui en silencio
+      agradecido con todo lo bonito que dejaste dentro de mi, aunque no lo veas, aunque no lo sepas, sigo aqui guardando todo lo que fue 
+      porque aunque tu cortaste todo de golpe y aunque no me gusto tambien lo respeto porque se que es lo que creiste mejor para ti,
+      yo lo voy a tomar de que fue tu manera de protegerme y te lo agradezco
+      solo quiero que estes tranquila, feliz con esa sonrisa tan linda que siempre me gusto y si algun dia llegas a leer esto solo quiero que sepas que yo nunca me fui
+      siempre estuve aqui, aunque ya no me veas
+
+    </p>
+    <audio id="cancionSecreta" src="musica/Lloviendo Estrellas.mp3"></audio>
+  </section>
+
+  <footer id="footer">
+    <p>Hecho con con el cariño y respeto que te tengo. &copy; 2025</p>
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const musica = document.getElementById('musicaPrincipito');
-      const video = document.getElementById('videoRecuerdo');
+      // Mostrar header y secciones con fade-in al cargar o hacer scroll
+      const header = document.getElementById('header');
+      const footer = document.getElementById('footer');
+      const secciones = document.querySelectorAll('.seccion');
+      // Mostrar header tras intro
+      setTimeout(() => header.classList.add('visible'), 1000);
+      // Observer para secciones y footer
+      const observerOpts = { threshold: 0.2 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOpts);
+      secciones.forEach(sec => observer.observe(sec));
+      observer.observe(footer);
 
-      function togglePlay() {
-        if (video.paused) {
-          video.play();
-          musica.play().catch(() => {
-            // En móviles a veces bloquean el audio, por eso el catch
-            console.log('No se pudo reproducir la música automáticamente');
-          });
-        } else {
-          video.pause();
-          musica.pause();
+      // Carrusel crossfade
+      const imagenes = document.querySelectorAll('#carrusel img');
+      let idx = 0;
+      setInterval(() => {
+        imagenes[idx].classList.remove('active');
+        idx = (idx + 1) % imagenes.length;
+        imagenes[idx].classList.add('active');
+      }, 4000);
+
+      // Botón secreto
+      window.activarSecreto = () => {
+        const mensaje = document.getElementById('mensaje');
+        const cancion = document.getElementById('cancionSecreta');
+        if (mensaje.style.display !== 'block') {
+          mensaje.style.display = 'block';
+          cancion.play().catch(() => {});
         }
-      }
-
-      // Escuchar click y touchend para cubrir escritorio y móviles
-      video.addEventListener('click', togglePlay);
-      video.addEventListener('touchend', togglePlay);
-
-      video.addEventListener('ended', () => {
-        musica.pause();
-        musica.currentTime = 0;
-      });
+      };
     });
   </script>
+
 </body>
 </html>
+
