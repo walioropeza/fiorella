@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mi jardín secreto para ti</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
   <!-- Plausible: solo se carga si no estamos en modo autor -->
   <script>
@@ -22,7 +23,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset básico */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       margin: 0;
@@ -32,7 +32,6 @@
       color: #333;
       overflow-x: hidden;
     }
-    /* Intro animada */
     .intro {
       position: fixed;
       inset: 0;
@@ -62,7 +61,6 @@
       50% { transform: scale(1.05); opacity: 1; }
       100% { transform: scale(1); opacity: 1; }
     }
-    /* Header */
     header {
       background-color: rgba(255, 255, 255, 0.8);
       text-align: center;
@@ -91,7 +89,6 @@
       margin-top: 10px;
       line-height: 1.3;
     }
-    /* Secciones */
     .seccion {
       max-width: 900px;
       margin: 40px auto;
@@ -115,14 +112,13 @@
       margin-bottom: 20px;
       line-height: 1.2;
     }
-    /* Carrusel con crossfade */
     .carrusel {
       position: relative;
       overflow: hidden;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       height: 0;
-      padding-bottom: 56.25%; /* relación 16:9; ajustar si es otro ratio */
+      padding-bottom: 56.25%;
     }
     .carrusel img {
       position: absolute;
@@ -136,7 +132,6 @@
     .carrusel img.active {
       opacity: 1;
     }
-    /* Galería de video */
     .galeria video {
       width: 100%;
       border-radius: 15px;
@@ -149,7 +144,6 @@
     .galeria video:hover {
       transform: scale(1.02);
     }
-    /* Botón secreto mejorado */
     .boton-secreto {
       background: linear-gradient(45deg, #b44a75, #d67aa6);
       border: none;
@@ -176,18 +170,19 @@
     .mensaje-secreto {
       text-align: center;
       margin-top: 20px;
-      display: none;
       font-style: italic;
       color: #090000;
       font-size: 1.3em;
-      animation: aparecer 1s ease forwards;
       line-height: 1.4;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 1s ease, padding 0.5s ease;
+      padding: 0 0;
     }
-    @keyframes aparecer {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    .mensaje-secreto.visible {
+      max-height: 1000px;
+      padding: 20px;
     }
-    /* Footer */
     footer {
       text-align: center;
       padding: 20px;
@@ -204,19 +199,19 @@
     @media screen and (max-width: 600px) {
       header h1 { font-size: 2em; }
       header p { font-size: 1.2em; }
+      .mensaje-secreto { font-size: 1em; padding: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Intro animada -->
   <div class="intro">
     <h1>dejo este espacio solo para ti, Fio 🌷</h1>
   </div>
 
   <header id="header">
-    <h1>dejo este recuerdo </h1>
-    <p>En esta pagina guarda mi sentir: aunque paresca callado y ausente no dejo de sentir. Si algún día dudas recuerda que eres una mujer increíble.</p>
+    <h1>dejo este recuerdo</h1>
+    <p>En esta página guardo mi sentir: aunque parezca callado y ausente, no dejo de sentir. Si algún día dudas, recuerda que eres una mujer increíble.</p>
   </header>
 
   <section class="seccion" id="seccion-recuerdos">
@@ -226,7 +221,6 @@
       <img src="fotosfio/foto2.jpg" alt="Foto 2">
       <img src="fotosfio/foto3.jpg" alt="Foto 3">
       <img src="fotosfio/foto4.jpg" alt="Foto 4">
-      <!-- Agrega o quita <img> según tus fotos -->
     </div>
   </section>
 
@@ -234,7 +228,6 @@
     <h2>🌿 video cargando ...</h2>
     <div class="galeria">
       <video controls src="videos/video1.mp4"></video>
-      <!-- Puedes añadir más videos si quieres -->
     </div>
   </section>
 
@@ -242,52 +235,34 @@
     <h2>🌸 Mensaje</h2>
     <button class="boton-secreto" onclick="activarSecreto()">Haz clic aquí</button>
     <p id="mensaje" class="mensaje-secreto">
-      nose en que momento paso esto pero ahora no sabemos nada uno del otro y si te preguntas si pienso en ti .. si!!
-      muchas veces quiero saber de ti si estas bien, si estas comiendo, si te estas cuidando, si estas sonriendo, si estas abrigandote al salir, 
-      si te fuiste a chequear y si asi fue como te fue, tantas cosas que quisiera saber de ti.. 
-      y si en algun momento sientes frio quiero que recuerdes mi abrazo calido, sincero y que de alguna manera te reconforte aunque yo no este alli
-      no te busco, no insisto, no aparezco… no porque no quiera, sino porque aceptar tu decisión es también mi forma de protegerme a mí mismo.
-      quiero pensar que lo hiciste porque creíste que era lo mejor para mí, y quizás, en el fondo, lo fue.
-      tal vez de seguir, hubiéramos terminado haciéndonos daño.
-
-      también entendí que aceptar esto fue protegerme, porque aunque te quise más de lo que creí, pensé o sentí,
-      me di cuenta que salir a buscarte sería hacerme daño
-      y aunque me duele no verte, aunque me duele no saber de ti quier que sepas que yo sigo aqui, no soy de los que se van, sigo aqui en silencio
-      agradecido con todo lo bonito que dejaste dentro de mi, aunque no lo veas, aunque no lo sepas, sigo aqui guardando todo lo que fue 
-      porque aunque tu cortaste todo de golpe y aunque no me gusto tambien lo respeto porque se que es lo que creiste mejor para ti,
-      yo lo voy a tomar de que fue tu manera de protegerme y te lo agradezco
-      solo quiero que estes tranquila, feliz con esa sonrisa tan linda que siempre me gusto y si algun dia llegas a leer esto solo quiero que sepas que yo nunca me fui
-      siempre estuve aqui, aunque ya no me veas
-
+      nose en que momento paso esto pero ahora no sabemos nada uno del otro y si te preguntas si pienso en ti .. si!! muchas veces quiero saber de ti si estas bien, si estas comiendo, si te estas cuidando, si estas sonriendo, si estas abrigandote al salir, si te fuiste a chequear y si asi fue como te fue, tantas cosas que quisiera saber de ti...  si en algun momento sientes frio quiero que recuerdes mi abrazo calido sincero y que de alguna manera te reconforte aunque yo no este alli, y si no te busque no insisti no apareci por alli… no es porque no quiera sino porque aceptar tu decision y creo que tambien es mi forma de protegerme a mi mismo, quiero pensar que lo hiciste porque creiste que era lo mejor para mi y quizas en el fondo lo fue.. quizas... tal vez de seguir hubieramos terminado haciendonos daño, aceptar esto solo fue miedo a lo que podria pasar despues, porque aunque te quise mas de lo que crei, pense o senti me di cuenta que salir a buscarte seria hacerme daño y aunque el pecho me apriete por no verte, por no saber de ti.. quiero que sepas que yo sigo aqui no soy de los que se van sigo aqui en silencio agradecido con todo lo bonito que dejaste dentro de mi aunque no lo veas aunque no lo sepas sigo aqui guardando todo lo que fue porque aunque tu cortaste todo de golpe y aunque no me gusto tambien lo respeto porque se que es lo que creiste mejor para ti yo lo voy a tomar como que fue tu manera de protegerme y te lo agradezco solo quiero que estes tranquila feliz con esa sonrisa tan linda que siempre me gusto y si algun dia llegas a leer esto solo quiero que sepas que yo nunca me fui siempre estuve aqui aunque ya no me veas
     </p>
     <audio id="cancionSecreta" src="musica/Lloviendo Estrellas.mp3"></audio>
   </section>
 
   <footer id="footer">
-    <p>Hecho con con el cariño y respeto que te tengo. &copy; 2025</p>
+    <p>Hecho con el cariño y respeto que te tengo. 📝 Carta escrita el 21 de junio de 2025 &copy;</p>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Mostrar header y secciones con fade-in al cargar o hacer scroll
       const header = document.getElementById('header');
       const footer = document.getElementById('footer');
       const secciones = document.querySelectorAll('.seccion');
-      // Mostrar header tras intro
+
       setTimeout(() => header.classList.add('visible'), 1000);
-      // Observer para secciones y footer
-      const observerOpts = { threshold: 0.2 };
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
         });
-      }, observerOpts);
+      }, { threshold: 0.2 });
+
       secciones.forEach(sec => observer.observe(sec));
       observer.observe(footer);
 
-      // Carrusel crossfade
       const imagenes = document.querySelectorAll('#carrusel img');
       let idx = 0;
       setInterval(() => {
@@ -296,14 +271,11 @@
         imagenes[idx].classList.add('active');
       }, 4000);
 
-      // Botón secreto
       window.activarSecreto = () => {
         const mensaje = document.getElementById('mensaje');
         const cancion = document.getElementById('cancionSecreta');
-        if (mensaje.style.display !== 'block') {
-          mensaje.style.display = 'block';
-          cancion.play().catch(() => {});
-        }
+        mensaje.classList.add('visible');
+        cancion.play().catch(() => {});
       };
     });
   </script>
