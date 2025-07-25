@@ -2,284 +2,225 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mi jardín secreto para ti</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Ti ❤️</title>
 
-  <!-- Plausible: solo se carga si no estamos en modo autor -->
-  <script>
-    (function(){
-      const isAutor = window.location.search.includes("autor=true");
-      if (!isAutor) {
-        const s = document.createElement("script");
-        s.defer = true;
-        s.setAttribute("data-domain", "walioropeza.github.io/fiorella");
-        s.src = "https://plausible.io/js/script.js";
-        document.head.appendChild(s);
-      }
-    })();
-  </script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Plausible Analytics -->
+  <script defer data-domain="walioropeza.github.io" src="https://plausible.io/js/script.js"></script>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    * {
       margin: 0;
-      background: url('flores/fondo-floral.jpg') repeat;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: url('assets/fondo-floral.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Quicksand', sans-serif;
-      color: #333;
+      color: white;
+      text-align: center;
       overflow-x: hidden;
     }
-    .intro {
-      position: fixed;
-      inset: 0;
-      background: rgba(255,255,247,0.95);
+
+    .pantalla-dividida {
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
-      animation: florAbriendo 8s ease forwards;
-    }
-    .intro h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.5em;
-      color: #b44a75;
-      text-align: center;
-      padding: 0 20px;
-      opacity: 0;
-      animation: textoIntro 4s ease forwards 1s;
-    }
-    @keyframes florAbriendo {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
-    }
-    @keyframes textoIntro {
-      0% { transform: scale(0.8); opacity: 0; }
-      50% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    header {
-      background-color: rgba(255, 255, 255, 0.8);
-      text-align: center;
-      padding: 60px 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      border-radius: 20px;
-      margin: 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    header.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    header h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.8em;
-      color: #b44a75;
-      line-height: 1.2;
-    }
-    header p {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.4em;
-      color: #181516;
-      margin-top: 10px;
-      line-height: 1.3;
-    }
-    .seccion {
-      max-width: 900px;
-      margin: 40px auto;
       padding: 20px;
-      background: #ffffffcc;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
+      flex-wrap: wrap;
+      gap: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
     }
-    .seccion.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .seccion h2 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2em;
-      color: #b44a75;
+
+    .tarjeta {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      width: 280px;
       text-align: center;
-      margin-bottom: 20px;
-      line-height: 1.2;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
-    .carrusel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      height: 0;
-      padding-bottom: 56.25%;
-    }
-    .carrusel img {
-      position: absolute;
-      top: 0; left: 0;
+
+    .tarjeta img {
       width: 100%;
-      height: 100%;
+      height: 300px;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s ease;
+      border-radius: 16px;
+      margin-bottom: 10px;
     }
-    .carrusel img.active {
-      opacity: 1;
-    }
-    .galeria video {
-      width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      display: block;
-      margin: 0 auto;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    .galeria video:hover {
-      transform: scale(1.02);
-    }
-    .boton-secreto {
-      background: linear-gradient(45deg, #b44a75, #d67aa6);
-      border: none;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.2em;
-      padding: 15px 30px;
-      border-radius: 30px;
-      color: #fff;
-      cursor: pointer;
-      display: block;
-      margin: 30px auto;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 3s infinite;
-    }
-    .boton-secreto:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(187, 21, 21, 0.4);
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    .mensaje-secreto {
-      text-align: center;
+
+    h1 {
       margin-top: 20px;
-      font-style: italic;
-      color: #090000;
-      font-size: 1.3em;
-      line-height: 1.4;
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 1s ease, padding 0.5s ease;
-      padding: 0 0;
+      font-size: 32px;
+      text-shadow: 2px 2px 4px #000;
     }
-    .mensaje-secreto.visible {
-      max-height: 1000px;
+
+    #typewriter {
+      margin: 30px auto;
       padding: 20px;
+      max-width: 800px;
+      font-size: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px #000;
     }
-    footer {
-      text-align: center;
+
+    #musicButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff5c8a;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+    }
+
+    canvas#particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
       padding: 20px;
-      font-size: 0.9em;
-      color: #030303;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
+      max-width: 1200px;
+      margin: 0 auto 40px;
     }
-    footer.visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    .galeria img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
     }
-    @media screen and (max-width: 600px) {
-      header h1 { font-size: 2em; }
-      header p { font-size: 1.2em; }
-      .mensaje-secreto { font-size: 1em; padding: 10px; }
+
+    .galeria img:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
 
-  <div class="intro">
-    <h1>Algunas cosas ya no se dicen… pero siguen aquí..</h1>
+  <canvas id="particles"></canvas>
+
+  <h1>🌹 Para ti fio, mi amor 🌹</h1>
+
+  <div class="pantalla-dividida">
+    <div class="tarjeta">
+      <img src="assets/foto1.jpg" alt="Fio" />
+      <h2>Fio 💖</h2>
+    </div>
+    <div class="tarjeta">
+      <img src="assets/foto2.jpg" alt="Yo" />
+      <h2>Yo 💙</h2>
+    </div>
   </div>
 
-  <header id="header">
-    <h1>dejo este recuerdo</h1>
-    <p>En esta página guardo mi sentir: y aunque parezca callado y ausente, no dejo de sentir. Si algún día dudas recuerda que eres una mujer increíble.</p>
-  </header>
+  <div id="typewriter"></div>
 
-  <section class="seccion" id="seccion-recuerdos">
-    <h2>🌼 Momentos contigo</h2>
-    <div class="carrusel" id="carrusel">
-      <img src="fotosfio/foto1.jpg" class="active" alt="Foto 1">
-      <img src="fotosfio/foto2.jpg" alt="Foto 2">
-      <img src="fotosfio/foto3.jpg" alt="Foto 3">
-      <img src="fotosfio/foto4.jpg" alt="Foto 4">
-    </div>
-  </section>
+  <button id="musicButton">🎵 Reproducir / Pausar música</button>
+  <audio id="bgMusic" src="assets/musica.mp3" loop></audio>
 
-  <section class="seccion" id="seccion-video">
-    <h2>🌿 video cargando ...</h2>
-    <div class="galeria">
-      <video controls src="videos/video1.mp4"></video>
-    </div>
-  </section>
-
-  <section class="seccion" id="seccion-regalo">
-    <h2>🌸 Mensaje</h2>
-    <button class="boton-secreto" onclick="activarSecreto()">Haz clic aquí</button>
-    <p id="mensaje" class="mensaje-secreto">
-      nose en que momento paso esto pero ahora no sabemos nada uno del otro y si te preguntas si pienso en ti .. si!! muchas veces quiero saber de ti si estas bien, si estas comiendo, si te estas cuidando, si estas sonriendo, si estas abrigandote al salir, si te fuiste a chequear y si asi fue como te fue, tantas cosas que quisiera saber de ti...  si en algun momento sientes frio quiero que recuerdes mi abrazo calido sincero y que de alguna manera te reconforte aunque yo no este alli, y si no te busque no insisti no apareci por alli… no es porque no quiera sino porque aceptar tu decision y creo que tambien es mi forma de protegerme a mi mismo, quiero pensar que lo hiciste porque creiste que era lo mejor para mi y quizas en el fondo lo fue.. quizas... tal vez de seguir hubieramos terminado haciendonos daño, aceptar esto solo fue miedo a lo que podria pasar despues, porque aunque te quise mas de lo que crei, pense o senti me di cuenta que salir a buscarte seria hacerme daño y aunque el pecho me apriete por no verte, por no saber de ti.. quiero que sepas que yo sigo aqui no soy de los que se van sigo aqui en silencio agradecido con todo lo bonito que dejaste dentro de mi aunque no lo veas aunque no lo sepas sigo aqui guardando todo lo que fue porque aunque tu cortaste todo de golpe y aunque no me gusto tambien lo respeto porque se que es lo que creiste mejor para ti yo lo voy a tomar como que fue tu manera de protegerme y te lo agradezco solo quiero que estes tranquila feliz con esa sonrisa tan linda que siempre me gusto y si algun dia llegas a leer esto solo quiero que sepas que yo nunca me fui siempre estuve aqui aunque ya no me veas
-    </p>
-    <audio id="cancionSecreta" src="musica/Lloviendo Estrellas.mp3"></audio>
-  </section>
-
-  <footer id="footer">
-    <p>Hecho con el cariño y respeto que te tengo. 📝 Carta escrita el 21 de junio de 2025 &copy;</p>
-  </footer>
+  <h2 style="margin-top: 40px; text-shadow: 2px 2px 6px #000;">momentos contigo 💑</h2>
+  <div class="galeria">
+    <img src="assets/foto1.jpg" alt="Foto 1" />
+    <img src="assets/foto2.jpg" alt="Foto 2" />
+    <img src="assets/foto3.jpg" alt="Foto 3" />
+    <img src="assets/foto4.jpg" alt="Foto 4" />
+    <img src="assets/foto5.jpg" alt="Foto 5" />
+    <img src="assets/foto6.jpg" alt="Foto 6" />
+    <img src="assets/foto7.jpg" alt="Foto 7" />
+    <img src="assets/foto8.jpg" alt="Foto 8" />
+  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const header = document.getElementById('header');
-      const footer = document.getElementById('footer');
-      const secciones = document.querySelectorAll('.seccion');
+    const mensaje = `20 de julio… una fecha muy especial.
+    Porque fue el momento en que por fin pude decirte que eres mi enamorada y que esto que sentimos es real y que estamos construyendo algo bonito paso a paso.\n\nY
+    Solo mencionarlo me llena el corazón. Es una sensación que no sentía hace mucho, y contigo ha vuelto… más fuerte, más clara, más viva. Sé que no todo será perfecto, 
+     que habrá momentos difíciles, dudas o caídas. Pero también sé que contigo puedo enfrentarlo todo. Porque me inspiras confianza, paz y ganas de seguir. 
+    que me hace sonreír solo con pensar en ti. Gracias por formar parte de mi vida, por ser parte de esta relación, por hacerme sentir bien… y por simplemente ser tú.\n\nEsto 
+    recién comienza, y me gusta lo que estamos construyendo, poco a poco. 💌`;
+    let i = 0;
+    const velocidad = 45;
+    const typewriter = document.getElementById('typewriter');
 
-      setTimeout(() => header.classList.add('visible'), 1000);
+    function escribir() {
+      if (i < mensaje.length) {
+        typewriter.innerHTML += mensaje.charAt(i);
+        i++;
+        setTimeout(escribir, velocidad);
+      }
+    }
+    escribir();
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.2 });
-
-      secciones.forEach(sec => observer.observe(sec));
-      observer.observe(footer);
-
-      const imagenes = document.querySelectorAll('#carrusel img');
-      let idx = 0;
-      setInterval(() => {
-        imagenes[idx].classList.remove('active');
-        idx = (idx + 1) % imagenes.length;
-        imagenes[idx].classList.add('active');
-      }, 4000);
-
-      window.activarSecreto = () => {
-        const mensaje = document.getElementById('mensaje');
-        const cancion = document.getElementById('cancionSecreta');
-        mensaje.classList.add('visible');
-        cancion.play().catch(() => {});
-      };
+    const music = document.getElementById("bgMusic");
+    document.getElementById("musicButton").addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
     });
+
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particlesArray = [];
+    const hearts = ["❤️", "💕", "💖", "💘"];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 100;
+        this.size = Math.random() * 30 + 20;
+        this.speedY = Math.random() * -1.5 - 0.5;
+        this.emoji = hearts[Math.floor(Math.random() * hearts.length)];
+      }
+
+      update() {
+        this.y += this.speedY;
+        if (this.y < -50) {
+          this.y = canvas.height + 50;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+
+      draw() {
+        ctx.font = this.size + "px serif";
+        ctx.fillText(this.emoji, this.x, this.y);
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < 30; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
   </script>
 
 </body>
 </html>
-
