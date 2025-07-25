@@ -1,88 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-image: url('assets/fondo-floral.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #fff;
-    text-shadow: 1px 1px 2px black;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('fondo/fondo-floral.jpg') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  color: #fff;
 }
 
-.split {
-    display: flex;
-    width: 100%;
-    height: 100vh;
+/* Fondo animado */
+canvas#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 
-.left, .right {
-    flex: 1;
-    text-align: center;
-    padding: 20px;
+/* Contenedor de pantalla dividida */
+.split-container {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
-.left img, .right img {
-    width: 70%;
-    max-width: 300px;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+.left-panel, .right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.glass-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  max-width: 90%;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.7;
 }
 
 h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #fff;
 }
 
-.mensaje {
-    background-color: rgba(0,0,0,0.5);
-    margin: 20px;
-    padding: 20px;
-    border-radius: 20px;
+/* Galería */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.mensaje p {
-    font-size: 1.2em;
-    line-height: 1.6;
+.gallery img {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
 }
 
-.galeria {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px;
+.gallery img:hover {
+  transform: scale(1.03);
 }
 
-.galeria img {
-    width: 200px;
+/* Botón de música */
+#musicButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff6b81;
+  border: none;
+  color: white;
+  padding: 1rem 1.2rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#musicButton:hover {
+  background: #ff4757;
+}
+
+/* 📱 Responsive para celular */
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-panel, .right-panel {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .glass-box {
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .gallery img {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
+  }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .split {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .left img, .right img {
-        width: 85%;
-        max-width: 250px;
-    }
-
-    .mensaje p {
-        font-size: 1em;
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-
-    .galeria img {
-        width: 100%;
-        max-width: 150px;
-    }
+  .gallery {
+    gap: 0.5rem;
+    padding: 1rem;
+  }
 }
