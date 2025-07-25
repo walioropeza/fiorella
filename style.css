@@ -55,6 +55,7 @@ h1 {
 
 .galeria img {
     width: 200px;
+    max-width: 100%;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -68,7 +69,8 @@ h1 {
     }
 
     .left img, .right img {
-        width: 80%;
+        width: 85%;
+        max-width: 250px;
     }
 
     .mensaje p {
@@ -80,6 +82,7 @@ h1 {
     }
 
     .galeria img {
-        width: 90%;
+        width: 100%;
+        max-width: 150px;
     }
 }
