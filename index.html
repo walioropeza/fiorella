@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Ti ❤️</title>
-
-  <!-- Plausible Analytics -->
-  <script defer data-domain="walioropeza.github.io" src="https://plausible.io/js/script.js"></script>
-
+  <title>Para Fio 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -16,211 +13,163 @@
     }
 
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: url('assets/fondo-floral.jpg') no-repeat center center fixed;
+      font-family: 'Montserrat', sans-serif;
+      background: url('fondo/fondo-floral.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: white;
-      text-align: center;
+      color: #fff;
       overflow-x: hidden;
     }
 
-    .pantalla-dividida {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      flex-wrap: wrap;
-      gap: 20px;
+    header {
+      text-align: center;
+      padding: 2rem;
       background-color: rgba(0, 0, 0, 0.6);
     }
 
-    .tarjeta {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 20px;
-      width: 280px;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #ffb6c1;
     }
 
-    .tarjeta img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 10px;
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
     }
 
-    h1 {
-      margin-top: 20px;
-      font-size: 32px;
-      text-shadow: 2px 2px 4px #000;
-    }
-
-    #typewriter {
-      margin: 30px auto;
-      padding: 20px;
-      max-width: 800px;
-      font-size: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      line-height: 1.6;
-      text-shadow: 1px 1px 3px #000;
-    }
-
-    #musicButton {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #ff5c8a;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
-    }
-
-    canvas#particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-
-    .galeria {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .fotos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 15px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto 40px;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .galeria img {
-      width: 100%;
-      height: 240px;
+    .fotos img {
+      width: 250px;
+      height: 250px;
       object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      border: 3px solid #fff;
       transition: transform 0.3s ease;
     }
 
-    .galeria img:hover {
+    .fotos img:hover {
       transform: scale(1.05);
     }
+
+    .mensaje {
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .mensaje strong {
+      color: #ffb6c1;
+    }
+
+    .corazones {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .corazon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://i.imgur.com/wOa2B5Z.png') no-repeat center;
+      background-size: contain;
+      animation: flotar 6s linear infinite;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      font-size: 0.9rem;
+    }
   </style>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="walioropeza.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
+  <header>
+    <h1>Para Fio 💖</h1>
+    <p>Una pequeña muestra de lo que siento por ti</p>
+  </header>
 
-  <canvas id="particles"></canvas>
-
-  <h1>🌹 Para ti fio, mi amor 🌹</h1>
-
-  <div class="pantalla-dividida">
-    <div class="tarjeta">
-      <img src="assets/foto1.jpg" alt="Fio" />
-      <h2>Fio 💖</h2>
-    </div>
-    <div class="tarjeta">
-      <img src="assets/foto2.jpg" alt="Yo" />
-      <h2>Yo 💙</h2>
-    </div>
+  <div class="fotos">
+    <img src="fotos/foto1.jpg" alt="Fio" />
+    <img src="fotos/foto2.jpg" alt="Yo" />
+    <img src="fotos/foto3.jpg" alt="Foto 3" />
+    <img src="fotos/foto4.jpg" alt="Foto 4" />
+    <img src="fotos/foto5.jpg" alt="Foto 5" />
+    <img src="fotos/foto6.jpg" alt="Foto 6" />
+    <img src="fotos/foto7.jpg" alt="Foto 7" />
+    <img src="fotos/foto8.jpg" alt="Foto 8" />
+    <img src="fotos/foto9.jpg" alt="Foto 9" />
   </div>
 
-  <div id="typewriter"></div>
-
-  <button id="musicButton">🎵 Reproducir / Pausar música</button>
-  <audio id="bgMusic" src="assets/musica.mp3" loop></audio>
-
-  <h2 style="margin-top: 40px; text-shadow: 2px 2px 6px #000;">momentos contigo 💑</h2>
-  <div class="galeria">
-    <img src="assets/foto1.jpg" alt="Foto 1" />
-    <img src="assets/foto2.jpg" alt="Foto 2" />
-    <img src="assets/foto3.jpg" alt="Foto 3" />
-    <img src="assets/foto4.jpg" alt="Foto 4" />
-    <img src="assets/foto5.jpg" alt="Foto 5" />
-    <img src="assets/foto6.jpg" alt="Foto 6" />
-    <img src="assets/foto7.jpg" alt="Foto 7" />
-    <img src="assets/foto8.jpg" alt="Foto 8" />
+  <div class="mensaje">
+    <p><strong>20 de julio</strong>, una fecha muy especial porque de cierta manera es cuando ya pude decirte que eres mi enamorada, que tenemos una relación.</p>
+    <p>Y solo mencionarlo es algo bonito… me da una sensación tan bonita que no lo sentía hace mucho tiempo, y contigo lo siento ahora.</p>
+    <p>Sé que no todo será felicidad, que habrá momentos difíciles, pero también sé que juntos podremos superar cualquier situación.</p>
+    <p>Eres la mujer que me hace sonreír solo de pensar en ti, gracias por formar parte de mi vida y de esta relación, por hacerme sentir bien y por simplemente ser tú.</p>
+    <p>Esto recién comienza y me gusta lo que estamos construyendo poco a poco.</p>
   </div>
+
+  <footer>
+    Hecho con 💖 por Wali para Fiorella – <span id="year"></span>
+  </footer>
+
+  <!-- Música -->
+  <audio id="bgMusic" src="musica/musica.mp3" autoplay loop></audio>
+
+  <!-- Corazones animados -->
+  <div class="corazones" id="corazones"></div>
 
   <script>
-    const mensaje = `20 de julio… una fecha muy especial.
-    Porque fue el momento en que por fin pude decirte que eres mi enamorada y que esto que sentimos es real y que estamos construyendo algo bonito paso a paso.\n\nY
-    Solo mencionarlo me llena el corazón. Es una sensación que no sentía hace mucho, y contigo ha vuelto… más fuerte, más clara, más viva. Sé que no todo será perfecto, 
-     que habrá momentos difíciles, dudas o caídas. Pero también sé que contigo puedo enfrentarlo todo. Porque me inspiras confianza, paz y ganas de seguir. 
-    que me hace sonreír solo con pensar en ti. Gracias por formar parte de mi vida, por ser parte de esta relación, por hacerme sentir bien… y por simplemente ser tú.\n\nEsto 
-    recién comienza, y me gusta lo que estamos construyendo, poco a poco. 💌`;
-    let i = 0;
-    const velocidad = 45;
-    const typewriter = document.getElementById('typewriter');
+    // Mostrar corazones flotando
+    const corazones = document.getElementById("corazones");
 
-    function escribir() {
-      if (i < mensaje.length) {
-        typewriter.innerHTML += mensaje.charAt(i);
-        i++;
-        setTimeout(escribir, velocidad);
-      }
-    }
-    escribir();
+    function crearCorazon() {
+      const corazon = document.createElement("div");
+      corazon.classList.add("corazon");
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.animationDuration = 4 + Math.random() * 3 + "s";
+      corazones.appendChild(corazon);
 
-    const music = document.getElementById("bgMusic");
-    document.getElementById("musicButton").addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
-    });
-
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particlesArray = [];
-    const hearts = ["❤️", "💕", "💖", "💘"];
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + Math.random() * 100;
-        this.size = Math.random() * 30 + 20;
-        this.speedY = Math.random() * -1.5 - 0.5;
-        this.emoji = hearts[Math.floor(Math.random() * hearts.length)];
-      }
-
-      update() {
-        this.y += this.speedY;
-        if (this.y < -50) {
-          this.y = canvas.height + 50;
-          this.x = Math.random() * canvas.width;
-        }
-      }
-
-      draw() {
-        ctx.font = this.size + "px serif";
-        ctx.fillText(this.emoji, this.x, this.y);
-      }
+      setTimeout(() => {
+        corazon.remove();
+      }, 7000);
     }
 
-    function init() {
-      for (let i = 0; i < 30; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
+    setInterval(crearCorazon, 400);
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
+    // Año actual en el footer
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
