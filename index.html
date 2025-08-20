@@ -2,107 +2,135 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Ti ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Primer Mes ❤️</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
     body {
-      font-family: "Segoe UI", sans-serif;
       background: url('assets/fondo-floral.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: white;
-      text-align: center;
+      color: #fff;
       overflow-x: hidden;
     }
 
-    .pantalla-dividida {
+    /* --- Pantalla inicial --- */
+    .inicio {
+      height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 20px;
-      flex-wrap: wrap;
-      gap: 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    .tarjeta {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 20px;
-      width: 280px;
+      justify-content: center;
+      background: rgba(0,0,0,0.6);
       text-align: center;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      z-index: 2;
+      position: relative;
     }
 
-    .tarjeta img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
+    .inicio h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 6px #000;
+    }
+
+    .inicio button {
+      margin-top: 1rem;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      border:none;
+      border-radius: 8px;
+      background:#ff6b81;
+      color:white;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    .inicio button:hover { background:#ff4757; }
+
+    /* --- Contenido principal --- */
+    .contenido {
+      display: none;
+      padding: 2rem;
+      animation: aparecer 1s ease forwards;
+    }
+    @keyframes aparecer {from{opacity:0} to{opacity:1}}
+
+    /* Carta */
+    .carta {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      margin-top: 20px;
-      font-size: 32px;
-      text-shadow: 2px 2px 4px #000;
-    }
-
-    #typewriter {
-      margin: 30px auto;
-      padding: 20px;
+      padding: 2rem;
       max-width: 800px;
-      font-size: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      line-height: 1.6;
-      text-shadow: 1px 1px 3px #000;
+      margin: 2rem auto;
+      text-align: left;
+      line-height: 1.7;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
 
-    #musicButton {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #ff5c8a;
+    /* Carrusel */
+    .carrusel {
+      position: relative;
+      max-width: 600px;
+      margin: 2rem auto;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+    }
+
+    .carrusel img {
+      width: 100%;
+      display: none;
+      border-radius: 16px;
+    }
+
+    .carrusel img.active { display: block; }
+
+    .flecha {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
       border: none;
-      border-radius: 10px;
+      color: white;
+      font-size: 2rem;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50%;
     }
+    .flecha.izq { left: 10px; }
+    .flecha.der { right: 10px; }
 
+    /* Botón de música */
+    #musicButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff6b81;
+      border: none;
+      color: white;
+      padding: 1rem 1.2rem;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    #musicButton:hover { background:#ff4757; }
+
+    /* Fondito corazones */
     canvas#particles {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
+      z-index: 0;
     }
 
-    .galeria {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto 40px;
-    }
-
-    .galeria img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease;
-    }
-
-    .galeria img:hover {
-      transform: scale(1.05);
+    /* Responsive */
+    @media (max-width:768px){
+      .inicio h1 {font-size: 1.8rem;}
+      .carta {font-size: 1rem;padding:1.2rem;}
     }
   </style>
 </head>
@@ -110,121 +138,121 @@
 
   <canvas id="particles"></canvas>
 
-  <h1>🌹 Para mi princesa fio 🌹</h1>
+  <!-- Pantalla inicial -->
+  <div class="inicio" id="inicio">
+    <h1>🌹 Feliz primer mes, Fio 🌹</h1>
+    <p>Un mes juntos... y todo esto recién empieza 💖</p>
+    <button onclick="entrar()">Entrar a nuestra historia 💌</button>
+  </div>
 
-  <div class="pantalla-dividida">
-    <div class="tarjeta">
-      <img src="assets/foto1.jpg" alt="Fio" />
-      <h2>Fio 💖</h2>
-    </div>
-    <div class="tarjeta">
-      <img src="assets/foto2.jpg" alt="Yo" />
-      <h2>Yo 💙</h2>
+  <!-- Contenido principal -->
+  <div class="contenido" id="contenido">
+    <div class="carta" id="typewriter"></div>
+
+    <div class="carrusel">
+      <button class="flecha izq" onclick="cambiar(-1)">❮</button>
+      <img src="assets/foto1.jpg" class="active" alt="Foto 1">
+      <img src="assets/foto2.jpg" alt="Foto 2">
+      <img src="assets/foto3.jpg" alt="Foto 3">
+      <img src="assets/foto4.jpg" alt="Foto 4">
+      <img src="assets/foto5.jpg" alt="Foto 5">
+      <img src="assets/foto6.jpg" alt="Foto 6">
+      <img src="assets/foto7.jpg" alt="Foto 7">
+      <img src="assets/foto8.jpg" alt="Foto 8">
+      <button class="flecha der" onclick="cambiar(1)">❯</button>
     </div>
   </div>
 
-  <div id="typewriter"></div>
-
-  <button id="musicButton">🎵 Reproducir / Pausar música</button>
+  <!-- Música -->
+  <button id="musicButton">🎵</button>
   <audio id="bgMusic" src="assets/musica.mp3" loop></audio>
 
-  <h2 style="margin-top: 40px; text-shadow: 2px 2px 6px #000;">momentos contigo 💑</h2>
-  <div class="galeria">
-    <img src="assets/foto1.jpg" alt="Foto 1" />
-    <img src="assets/foto2.jpg" alt="Foto 2" />
-    <img src="assets/foto3.jpg" alt="Foto 3" />
-    <img src="assets/foto4.jpg" alt="Foto 4" />
-    <img src="assets/foto5.jpg" alt="Foto 5" />
-    <img src="assets/foto6.jpg" alt="Foto 6" />
-    <img src="assets/foto7.jpg" alt="Foto 7" />
-    <img src="assets/foto8.jpg" alt="Foto 8" />
-  </div>
-
   <script>
-    // Máquina de escribir
-    const mensaje = `20 de julio… una fecha muy especial.
-    Porque fue el momento en que por fin pude decirte que eres mi enamorada y que esto que sentimos es real y que estamos construyendo algo bonito paso a paso.\n\nY
-    Solo mencionarlo me llena el corazón. Es una sensación que no sentía hace mucho, y contigo ha vuelto… más fuerte, más clara, más viva. Sé que no todo será perfecto, 
-     que habrá momentos difíciles, dudas o caídas. Pero también sé que contigo puedo enfrentarlo todo. Porque me inspiras confianza, paz y ganas de seguir. 
-    que me hace sonreír solo con pensar en ti. Gracias por formar parte de mi vida, por ser parte de esta relación, por hacerme sentir bien… y por simplemente ser tú.\n\nEsto 
-    recién comienza, y me gusta lo que estamos construyendo, poco a poco. 💌`;
-    let i = 0;
-    const velocidad = 75;
-    const typewriter = document.getElementById('typewriter');
+    // --- Transición ---
+    function entrar(){
+      document.getElementById("inicio").style.display="none";
+      document.getElementById("contenido").style.display="block";
+      escribir();
+      music.play(); // música arranca sola
+    }
 
-    function escribir() {
-      if (i < mensaje.length) {
+    // --- Carta animada ---
+    const mensaje = `Hoy celebramos nuestro primer mes juntos ❤️  
+
+Y aunque es poquito tiempo, siento que ya hemos compartido tanto.  
+Cada día contigo ha sido especial: tus sonrisas, tus ocurrencias,  
+tus detalles y hasta tus enojos me hacen quererte más.  
+
+Este mes me demostró que contigo todo es distinto,  
+que puedo reír sin razón, sentir paz solo con escucharte  
+y emocionarme con todo lo que viene.  
+
+Gracias por este primer mes, Fio 💕  
+Es el primero de muchos que quiero a tu lado.  
+Te adoro, mi amor. ❤️`;
+
+    let i=0;
+    const velocidad=50;
+    const typewriter=document.getElementById('typewriter');
+    function escribir(){
+      if(i<mensaje.length){
         typewriter.innerHTML += mensaje.charAt(i);
         i++;
-        setTimeout(escribir, velocidad);
+        setTimeout(escribir,velocidad);
       }
     }
-    escribir();
 
-    // Música
-    const music = document.getElementById("bgMusic");
-    document.getElementById("musicButton").addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
+    // --- Música ---
+    const music=document.getElementById("bgMusic");
+    document.getElementById("musicButton").addEventListener("click",()=>{
+      if(music.paused){music.play();}
+      else{music.pause();}
     });
 
-    // Corazones flotantes
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // --- Carrusel ---
+    let index=0;
+    const fotos=document.querySelectorAll(".carrusel img");
+    function cambiar(dir){
+      fotos[index].classList.remove("active");
+      index=(index+dir+fotos.length)%fotos.length;
+      fotos[index].classList.add("active");
+    }
 
-    const particlesArray = [];
-    const hearts = ["❤️", "💕", "💖", "💘"];
+    // --- Corazones flotantes ---
+    const canvas=document.getElementById("particles");
+    const ctx=canvas.getContext("2d");
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + Math.random() * 100;
-        this.size = Math.random() * 30 + 20;
-        this.speedY = Math.random() * -1.5 - 0.5;
-        this.emoji = hearts[Math.floor(Math.random() * hearts.length)];
+    const particlesArray=[];
+    const hearts=["❤️","💕","💖","💘"];
+    class Particle{
+      constructor(){
+        this.x=Math.random()*canvas.width;
+        this.y=canvas.height+Math.random()*100;
+        this.size=Math.random()*30+20;
+        this.speedY=Math.random()*-1.5-0.5;
+        this.emoji=hearts[Math.floor(Math.random()*hearts.length)];
       }
-
-      update() {
-        this.y += this.speedY;
-        if (this.y < -50) {
-          this.y = canvas.height + 50;
-          this.x = Math.random() * canvas.width;
+      update(){
+        this.y+=this.speedY;
+        if(this.y<-50){
+          this.y=canvas.height+50;
+          this.x=Math.random()*canvas.width;
         }
       }
-
-      draw() {
-        ctx.font = this.size + "px serif";
-        ctx.fillText(this.emoji, this.x, this.y);
+      draw(){
+        ctx.font=this.size+"px serif";
+        ctx.fillText(this.emoji,this.x,this.y);
       }
     }
-
-    function init() {
-      for (let i = 0; i < 30; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
+    function init(){for(let i=0;i<30;i++){particlesArray.push(new Particle());}}
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particlesArray.forEach(p=>{p.update();p.draw();});
       requestAnimationFrame(animate);
     }
-
-    init();
-    animate();
+    init();animate();
   </script>
-
-  <!-- GoatCounter Analytics -->
-  <script data-goatcounter="https://fiorella-stats.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
-
 </body>
 </html>
