@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MI recuerdo con Ella</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
+    body{
+      background:url('assets/fondo/fondo-floral.jpg') no-repeat center center fixed;
+      background-size:cover;
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    /* Canvas NO debe capturar clics */
+    canvas#particles{
+      position:fixed;
+      top:0;left:0;
+      width:100vw;height:100vh;
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .overlay{
+      position:relative;
+      z-index:2;
+      min-height:100vh;
+      background:rgba(0,0,0,0.65);
+      padding-bottom:4rem;
+    }
+
+    /* Inicio */
+    .inicio{
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:2rem;
+    }
+
+    .inicio h1{font-size:2.3rem;margin-bottom:1rem;}
+    .inicio p{font-size:1.1rem;opacity:.9;}
+
+    .inicio button{
+      margin-top:2rem;
+      padding:12px 26px;
+      font-size:1.1rem;
+      border:none;
+      border-radius:10px;
+      background:#ff6b81;
+      color:#fff;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .inicio button:hover{background:#ff4757;}
+
+    /* Contenido */
+    .contenido{
+      display:none;
+      animation:fade 1.1s ease forwards;
+      padding:0 1rem;
+    }
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+
+    .carta{
+      background:rgba(255,255,255,0.12);
+      backdrop-filter:blur(8px);
+      border-radius:16px;
+      padding:2rem;
+      max-width:800px;
+      margin:3rem auto 2rem;
+      line-height:1.8;
+      font-size:1.05rem;
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+      white-space:pre-wrap;
+    }
+
+    /* Carrusel */
+    .carrusel{
+      position:relative;
+      max-width:600px;
+      margin:2rem auto 3rem;
+      overflow:hidden;
+      border-radius:16px;
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+      background:rgba(0,0,0,.2);
+    }
+
+    .carrusel img{width:100%;display:none;}
+    .carrusel img.active{display:block;}
+
+    .flecha{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(0,0,0,.55);
+      border:none;
+      color:#fff;
+      font-size:2rem;
+      cursor:pointer;
+      padding:.25rem .75rem;
+      border-radius:50%;
+      z-index:3;
+    }
+    .flecha.izq{left:10px;}
+    .flecha.der{right:10px;}
+
+    .cierre{
+      max-width:720px;
+      margin:0 auto;
+      padding:0 1rem;
+      text-align:center;
+      opacity:.92;
+    }
+    .cierre p{margin:.6rem 0;}
+
+    /* Música */
+    #musicButton{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      z-index:10;
+      background:#ff6b81;
+      border:none;
+      color:#fff;
+      padding:1rem 1.15rem;
+      border-radius:50%;
+      font-size:1.4rem;
+      cursor:pointer;
+      box-shadow:0 10px 20px rgba(0,0,0,.3);
+    }
+    #musicButton:hover{background:#ff4757;}
+
+    @media (max-width:768px){
+      .inicio h1{font-size:1.7rem;}
+      .carta{font-size:.95rem;padding:1.2rem;}
+    }
+  </style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="overlay">
+
+  <div class="inicio" id="inicio">
+    <h1>mi sueño con ella</h1>
+    <p>Un sueño bonito… nada más</p>
+    <button id="btnEntrar">Entrar</button>
+  </div>
+
+  <div class="contenido" id="contenido">
+    <div class="carta" id="typewriter"></div>
+
+    <div class="carrusel">
+      <button class="flecha izq" id="prevBtn">❮</button>
+
+      <img src="assets/fotos/foto1.jpg" class="active">
+      <img src="assets/fotos/foto2.jpg">
+      <img src="assets/fotos/foto3.jpg">
+      <img src="assets/fotos/foto4.jpg">
+      <img src="assets/fotos/foto5.jpg">
+      <img src="assets/fotos/foto6.jpg">
+      <img src="assets/fotos/foto7.jpg">
+      <img src="assets/fotos/foto8.jpg">
+
+      <button class="flecha der" id="nextBtn">❯</button>
+    </div>
+
+    <div class="cierre">
+      <p>Mi recuerdo.</p>
+      <p>Gracias por lo que fue, por lo que enseñó, y por lo que ya no tenía que ser.</p>
+      <p><em>Enero de 2026.</em></p>
+    </div>
+  </div>
+</div>
+
+<button id="musicButton" title="Música">🎵</button>
+<audio id="bgMusic" src="assets/musica/musica.mp3" loop></audio>
+
+<script>
+  /* ---------- Elementos ---------- */
+  const inicio = document.getElementById("inicio");
+  const contenido = document.getElementById("contenido");
+  const btnEntrar = document.getElementById("btnEntrar");
+  const typewriter = document.getElementById("typewriter");
+  const music = document.getElementById("bgMusic");
+
+  /* ---------- Texto ---------- */
+  const mensaje = `Esta página fue un regalo .
+Hoy sigue siendolo.
+
+muchas veces las personas tenemos que irnos
+para cuidar la paz y tranquildad
+de la persona que amaamos
+aunque duela,
+aunque por dentro nos destroce.
+puedo decir que la extraño.
+
+Escribo esto con el corazón en la mano,
+sin esperanzas,
+sabiendo que quizá nunca lo leas.
+Solo como una forma de desahogo.
+
+No te busqué.
+No te llamé.
+Porque amar también es respetar.
+
+Si alguna vez lo ves,
+solo quería que supieras eso.`;
+
+  let i = 0;
+  function escribir(){
+    if(i < mensaje.length){
+      typewriter.textContent += mensaje.charAt(i);
+      i++;
+      setTimeout(escribir, 55);
+    }
+  }
+
+  /* ---------- Entrar (INICIA MÚSICA EN MÓVIL) ---------- */
+  btnEntrar.addEventListener("click", () => {
+    inicio.style.display = "none";
+    contenido.style.display = "block";
+    if(typewriter.textContent.length === 0) escribir();
+
+    // 🎵 válido para celular (acción del usuario)
+    if(music.paused){
+      music.play().catch(()=>{});
+    }
+  });
+
+  /* ---------- Botón música ---------- */
+  document.getElementById("musicButton").addEventListener("click", ()=>{
+    music.paused ? music.play() : music.pause();
+  });
+
+  /* ---------- Carrusel (no vuelve al inicio) ---------- */
+  let index = 0;
+  const fotos = document.querySelectorAll(".carrusel img");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  function render(){
+    fotos.forEach((img,k)=>img.classList.toggle("active", k===index));
+    prevBtn.style.opacity = index===0 ? ".4":"1";
+    nextBtn.style.opacity = index===fotos.length-1 ? ".4":"1";
+  }
+  prevBtn.onclick = ()=>{ if(index>0){ index--; render(); } };
+  nextBtn.onclick = ()=>{ if(index<fotos.length-1){ index++; render(); } };
+  render();
+
+  /* ---------- Corazones ---------- */
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const hearts = ["❤️","💕","💖"];
+  const particles = [];
+
+  class Particle{
+    constructor(){ this.reset(true); }
+    reset(startBottom=false){
+      this.x = Math.random()*canvas.width;
+      this.y = startBottom ? canvas.height+Math.random()*200 : -50;
+      this.size = Math.random()*18+14;
+      this.speed = Math.random()*0.7+0.3;
+      this.emoji = hearts[Math.floor(Math.random()*hearts.length)];
+    }
+    update(){
+      this.y += this.speed;
+      if(this.y > canvas.height+60) this.reset();
+    }
+    draw(){
+      ctx.font = this.size+"px serif";
+      ctx.fillText(this.emoji, this.x, this.y);
+    }
+  }
+
+  for(let n=0;n<18;n++) particles.push(new Particle());
+  (function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{p.update();p.draw();});
+    requestAnimationFrame(animate);
+  })();
+</script>
+
+</body>
+</html>
