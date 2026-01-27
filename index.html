@@ -6,7 +6,12 @@
   <title>MI recuerdo con Ella</title>
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI',sans-serif;
+    }
 
     body{
       background:url('assets/fondo/fondo-floral.jpg') no-repeat center center fixed;
@@ -15,11 +20,13 @@
       overflow-x:hidden;
     }
 
-    /* Canvas NO debe capturar clics */
+    /* Canvas */
     canvas#particles{
       position:fixed;
-      top:0;left:0;
-      width:100vw;height:100vh;
+      top:0;
+      left:0;
+      width:100vw;
+      height:100vh;
       z-index:0;
       pointer-events:none;
     }
@@ -29,7 +36,7 @@
       z-index:2;
       min-height:100vh;
       background:rgba(0,0,0,0.65);
-      padding-bottom:4rem;
+      padding-bottom:3rem;
     }
 
     /* Inicio */
@@ -43,8 +50,15 @@
       padding:2rem;
     }
 
-    .inicio h1{font-size:2.3rem;margin-bottom:1rem;}
-    .inicio p{font-size:1.1rem;opacity:.9;}
+    .inicio h1{
+      font-size:2.3rem;
+      margin-bottom:1rem;
+    }
+
+    .inicio p{
+      font-size:1.1rem;
+      opacity:.9;
+    }
 
     .inicio button{
       margin-top:2rem;
@@ -57,7 +71,10 @@
       cursor:pointer;
       transition:.2s;
     }
-    .inicio button:hover{background:#ff4757;}
+
+    .inicio button:hover{
+      background:#ff4757;
+    }
 
     /* Contenido */
     .contenido{
@@ -65,34 +82,61 @@
       animation:fade 1.1s ease forwards;
       padding:0 1rem;
     }
-    @keyframes fade{from{opacity:0}to{opacity:1}}
+
+    @keyframes fade{
+      from{opacity:0}
+      to{opacity:1}
+    }
+
+    /* 🔑 Layout dividido */
+    .layout{
+      display:flex;
+      gap:2rem;
+      max-width:1100px;
+      margin:3rem auto 2rem;
+      align-items:stretch;
+    }
 
     .carta{
+      flex:1;
       background:rgba(255,255,255,0.12);
       backdrop-filter:blur(8px);
       border-radius:16px;
       padding:2rem;
-      max-width:800px;
-      margin:3rem auto 2rem;
       line-height:1.8;
       font-size:1.05rem;
       box-shadow:0 10px 25px rgba(0,0,0,.35);
       white-space:pre-wrap;
+      max-height:70vh;
+      overflow-y:auto;
     }
 
-    /* Carrusel */
+    /* Carrusel tipo VIDEO */
     .carrusel{
+      flex:1;
       position:relative;
-      max-width:600px;
-      margin:2rem auto 3rem;
       overflow:hidden;
       border-radius:16px;
       box-shadow:0 10px 25px rgba(0,0,0,.35);
       background:rgba(0,0,0,.2);
+      max-height:70vh;
+      aspect-ratio: 4 / 5;
     }
 
-    .carrusel img{width:100%;display:none;}
-    .carrusel img.active{display:block;}
+    .carrusel img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:absolute;
+      top:0;
+      left:0;
+      opacity:0;
+      transition:opacity 1.3s ease-in-out;
+    }
+
+    .carrusel img.active{
+      opacity:1;
+    }
 
     .flecha{
       position:absolute;
@@ -107,17 +151,21 @@
       border-radius:50%;
       z-index:3;
     }
-    .flecha.izq{left:10px;}
-    .flecha.der{right:10px;}
+
+    .flecha.izq{ left:10px; }
+    .flecha.der{ right:10px; }
 
     .cierre{
-      max-width:720px;
-      margin:0 auto;
-      padding:0 1rem;
+      max-width:800px;
+      margin:1.5rem auto 0;
       text-align:center;
       opacity:.92;
+      padding:0 1rem;
     }
-    .cierre p{margin:.6rem 0;}
+
+    .cierre p{
+      margin:.6rem 0;
+    }
 
     /* Música */
     #musicButton{
@@ -134,9 +182,14 @@
       cursor:pointer;
       box-shadow:0 10px 20px rgba(0,0,0,.3);
     }
-    #musicButton:hover{background:#ff4757;}
+
+    #musicButton:hover{
+      background:#ff4757;
+    }
 
     @media (max-width:768px){
+      .layout{ flex-direction:column; }
+      .carta, .carrusel{ max-height:none; }
       .inicio h1{font-size:1.7rem;}
       .carta{font-size:.95rem;padding:1.2rem;}
     }
@@ -150,27 +203,30 @@
 <div class="overlay">
 
   <div class="inicio" id="inicio">
-    <h1>mi sueño con ella</h1>
-    <p>Un sueño bonito… nada más</p>
-    <button id="btnEntrar">Entrar</button>
+    <h1>un recuerdo que nunca se fue</h1>
+    <p>un sueño bonito</p>
+    <button id="btnEntrar">ver</button>
   </div>
 
   <div class="contenido" id="contenido">
-    <div class="carta" id="typewriter"></div>
 
-    <div class="carrusel">
-      <button class="flecha izq" id="prevBtn">❮</button>
+    <div class="layout">
+      <div class="carta" id="typewriter"></div>
 
-      <img src="assets/fotos/foto1.jpg" class="active">
-      <img src="assets/fotos/foto2.jpg">
-      <img src="assets/fotos/foto3.jpg">
-      <img src="assets/fotos/foto4.jpg">
-      <img src="assets/fotos/foto5.jpg">
-      <img src="assets/fotos/foto6.jpg">
-      <img src="assets/fotos/foto7.jpg">
-      <img src="assets/fotos/foto8.jpg">
+      <div class="carrusel">
+        <button class="flecha izq" id="prevBtn">❮</button>
 
-      <button class="flecha der" id="nextBtn">❯</button>
+        <img src="assets/fotos/foto1.jpg" class="active">
+        <img src="assets/fotos/foto2.jpg">
+        <img src="assets/fotos/foto3.jpg">
+        <img src="assets/fotos/foto4.jpg">
+        <img src="assets/fotos/foto5.jpg">
+        <img src="assets/fotos/foto6.jpg">
+        <img src="assets/fotos/foto7.jpg">
+        <img src="assets/fotos/foto8.jpg">
+
+        <button class="flecha der" id="nextBtn">❯</button>
+      </div>
     </div>
 
     <div class="cierre">
@@ -178,30 +234,29 @@
       <p>Gracias por lo que fue, por lo que enseñó, y por lo que ya no tenía que ser.</p>
       <p><em>Enero de 2026.</em></p>
     </div>
+
   </div>
 </div>
 
-<button id="musicButton" title="Música">🎵</button>
+<button id="musicButton">🎵</button>
 <audio id="bgMusic" src="assets/musica/musica.mp3" loop></audio>
 
 <script>
-  /* ---------- Elementos ---------- */
   const inicio = document.getElementById("inicio");
   const contenido = document.getElementById("contenido");
   const btnEntrar = document.getElementById("btnEntrar");
   const typewriter = document.getElementById("typewriter");
   const music = document.getElementById("bgMusic");
 
-  /* ---------- Texto ---------- */
-  const mensaje = `Esta página fue un regalo .
-Hoy sigue siendolo.
+  const mensaje = `Esta página fue un regalo.
+Hoy sigue siéndolo.
 
-muchas veces las personas tenemos que irnos
-para cuidar la paz y tranquildad
-de la persona que amaamos
+Muchas veces las personas tenemos que irnos
+para cuidar la paz y tranquilidad
+de la persona que amamos,
 aunque duela,
 aunque por dentro nos destroce.
-puedo decir que la extraño.
+Puedo decir que la extraño.
 
 Escribo esto con el corazón en la mano,
 sin esperanzas,
@@ -224,24 +279,17 @@ solo quería que supieras eso.`;
     }
   }
 
-  /* ---------- Entrar (INICIA MÚSICA EN MÓVIL) ---------- */
   btnEntrar.addEventListener("click", () => {
     inicio.style.display = "none";
     contenido.style.display = "block";
     if(typewriter.textContent.length === 0) escribir();
-
-    // 🎵 válido para celular (acción del usuario)
-    if(music.paused){
-      music.play().catch(()=>{});
-    }
+    if(music.paused) music.play().catch(()=>{});
   });
 
-  /* ---------- Botón música ---------- */
-  document.getElementById("musicButton").addEventListener("click", ()=>{
+  document.getElementById("musicButton").onclick = () => {
     music.paused ? music.play() : music.pause();
-  });
+  };
 
-  /* ---------- Carrusel (no vuelve al inicio) ---------- */
   let index = 0;
   const fotos = document.querySelectorAll(".carrusel img");
   const prevBtn = document.getElementById("prevBtn");
@@ -249,52 +297,24 @@ solo quería que supieras eso.`;
 
   function render(){
     fotos.forEach((img,k)=>img.classList.toggle("active", k===index));
-    prevBtn.style.opacity = index===0 ? ".4":"1";
-    nextBtn.style.opacity = index===fotos.length-1 ? ".4":"1";
   }
-  prevBtn.onclick = ()=>{ if(index>0){ index--; render(); } };
-  nextBtn.onclick = ()=>{ if(index<fotos.length-1){ index++; render(); } };
+
+  prevBtn.onclick = () => {
+    index = (index - 1 + fotos.length) % fotos.length;
+    render();
+  };
+
+  nextBtn.onclick = () => {
+    index = (index + 1) % fotos.length;
+    render();
+  };
+
+  setInterval(()=>{
+    index = (index + 1) % fotos.length;
+    render();
+  }, 4500);
+
   render();
-
-  /* ---------- Corazones ---------- */
-  const canvas = document.getElementById("particles");
-  const ctx = canvas.getContext("2d");
-
-  function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener("resize", resize);
-  resize();
-
-  const hearts = ["❤️","💕","💖"];
-  const particles = [];
-
-  class Particle{
-    constructor(){ this.reset(true); }
-    reset(startBottom=false){
-      this.x = Math.random()*canvas.width;
-      this.y = startBottom ? canvas.height+Math.random()*200 : -50;
-      this.size = Math.random()*18+14;
-      this.speed = Math.random()*0.7+0.3;
-      this.emoji = hearts[Math.floor(Math.random()*hearts.length)];
-    }
-    update(){
-      this.y += this.speed;
-      if(this.y > canvas.height+60) this.reset();
-    }
-    draw(){
-      ctx.font = this.size+"px serif";
-      ctx.fillText(this.emoji, this.x, this.y);
-    }
-  }
-
-  for(let n=0;n<18;n++) particles.push(new Particle());
-  (function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p=>{p.update();p.draw();});
-    requestAnimationFrame(animate);
-  })();
 </script>
 
 </body>
