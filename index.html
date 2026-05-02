@@ -22,7 +22,7 @@
         radial-gradient(ellipse 80%  80% at 85% 95%, rgba(55,18,70,0.45)  0%, transparent 55%),
         radial-gradient(ellipse 60%  50% at 50% 50%, rgba(30,10,40,0.6)   0%, transparent 70%),
         #0d0610;
-      background-attachment: fixed;
+
       color: #f0e8eb;
       font-family: 'Lato', sans-serif;
       font-weight: 300;
@@ -244,7 +244,7 @@
 
     .entrada {
       background: rgba(255,255,255,0.056);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
       border: 1px solid rgba(255,255,255,0.09);
       border-radius: 16px; padding: 1.8rem 2rem;
       position: relative; overflow: hidden;
@@ -330,7 +330,7 @@
     /* ── música ── */
     #musicBtn {
       position: fixed; bottom: 22px; right: 22px; z-index: 30;
-      width: 46px; height: 46px; border-radius: 50%;
+      width: 50px; height: 50px; border-radius: 50%;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.2);
       backdrop-filter: blur(8px);
@@ -933,6 +933,14 @@ function iniciarCarruseles(){
     function reset(){ clearInterval(timer); timer=setInterval(()=>ir(idx+1),4500); }
     car.querySelector('.izq').addEventListener('click',()=>{ ir(idx-1); reset(); });
     car.querySelector('.der').addEventListener('click',()=>{ ir(idx+1); reset(); });
+    // Swipe táctil en móvil
+    let sx=0,sy=0;
+    car.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+    car.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-sx;
+      const dy=e.changedTouches[0].clientY-sy;
+      if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){ dx<0?ir(idx+1):ir(idx-1); reset(); }
+    },{passive:true});
     reset();
   });
 }
