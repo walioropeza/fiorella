@@ -3,211 +3,405 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MI recuerdo con Ella</title>
+  <title>Un diario sin destinatario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    body{
-      background:url('assets/fondo/fondo-floral.jpg') no-repeat center center fixed;
-      background-size:cover;
-      color:#fff;
-      overflow-x:hidden;
+    :root {
+      --rosa:       #c97088;
+      --rosa-claro: #e8aabb;
     }
 
-    canvas#particles{
-      position:fixed;
-      top:0;left:0;
-      width:100vw;height:100vh;
-      z-index:0;
-      pointer-events:none;
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(ellipse 130% 70% at 15% 5%,  rgba(90,28,48,0.55)  0%, transparent 55%),
+        radial-gradient(ellipse 80%  80% at 85% 95%, rgba(55,18,70,0.45)  0%, transparent 55%),
+        radial-gradient(ellipse 60%  50% at 50% 50%, rgba(30,10,40,0.6)   0%, transparent 70%),
+        #0d0610;
+      background-attachment: fixed;
+      color: #f0e8eb;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
     }
 
-    .overlay{
-      position:relative;
-      z-index:2;
-      min-height:100vh;
-      background:rgba(0,0,0,0.65);
-      padding-bottom:4rem;
+    /* grano de película sutil */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
     }
 
-    .inicio{
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:2rem;
+    #velo { display: none; }
+
+    canvas#particles {
+      position: fixed; inset: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1; pointer-events: none;
     }
 
-    .inicio h1{font-size:2.3rem;margin-bottom:1rem;}
-    .inicio p{font-size:1.1rem;opacity:.9;}
+    .capa { position: relative; z-index: 2; }
 
-    .inicio button{
-      margin-top:2rem;
-      padding:12px 26px;
-      font-size:1.1rem;
-      border:none;
-      border-radius:10px;
-      background:#ff6b81;
-      color:#fff;
-      cursor:pointer;
+    /* ════════════════
+       PORTADA
+    ════════════════ */
+    #portada-wrap { animation: fadeIn 1.8s ease forwards; }
+
+    #portada {
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+      position: relative;
     }
 
-    .contenido{
-      display:none;
-      animation:fade 1.1s ease forwards;
-      padding:2rem 1rem;
+    .portada-num-fondo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(8rem, 24vw, 16rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.04);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      line-height: 1; pointer-events: none;
+      user-select: none; letter-spacing: -0.03em;
     }
 
-    @keyframes fade{from{opacity:0}to{opacity:1}}
-
-    /* ===== PANTALLA DIVIDIDA ===== */
-    .split{
-      max-width:1100px;
-      margin:0 auto;
-      display:flex;
-      gap:2rem;
-      align-items:stretch;
+    .portada-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      margin-bottom: 1.6rem;
     }
 
-    .carta{
-      flex:1;
-      background:rgba(255,255,255,0.12);
-      backdrop-filter:blur(8px);
-      border-radius:16px;
-      padding:2rem;
-      line-height:1.8;
-      font-size:1.05rem;
-      box-shadow:0 10px 25px rgba(0,0,0,.35);
-      white-space:pre-wrap;
-      overflow-y:auto;
-      max-height:70vh;
+    #portada h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.02em;
     }
 
-    .carrusel{
-      flex:1;
-      position:relative;
-      overflow:hidden;
-      border-radius:16px;
-      box-shadow:0 10px 25px rgba(0,0,0,.35);
-      aspect-ratio:4/5;
-      background:#000;
+    .portada-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      opacity: 0.38;
+      margin-bottom: 3.8rem;
     }
 
-    .carrusel img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      position:absolute;
-      top:0;left:0;
-      opacity:0;
-      transition:opacity 1.3s ease-in-out;
+    .linea-portada {
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.28), transparent);
+      margin: 0 auto 3.2rem;
     }
 
-    .carrusel img.active{opacity:1;}
-
-    .flecha{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      background:rgba(0,0,0,.55);
-      border:none;
-      color:#fff;
-      font-size:2rem;
-      cursor:pointer;
-      padding:.25rem .75rem;
-      border-radius:50%;
-      z-index:3;
+    .btn-abrir {
+      padding: 12px 40px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 40px;
+      background: transparent; color: rgba(255,255,255,0.75);
+      cursor: pointer; transition: all 0.35s;
+    }
+    .btn-abrir:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.6);
+      color: #fff;
     }
 
-    .flecha.izq{left:10px;}
-    .flecha.der{right:10px;}
+    /* ════════════════
+       DIARIO
+    ════════════════ */
+    #diario { display: none; padding: 0 1rem 8rem; }
+    #diario.visible { display: block; animation: fadeIn 1s ease forwards; }
 
-    .cierre{
-      max-width:720px;
-      margin:3rem auto 0;
-      text-align:center;
-      opacity:.92;
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(14px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
-    #musicButton{
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      z-index:10;
-      background:#ff6b81;
-      border:none;
-      color:#fff;
-      padding:1rem 1.15rem;
-      border-radius:50%;
-      font-size:1.4rem;
-      cursor:pointer;
+    /* ── nav lateral ── */
+    .nav-meses {
+      position: fixed;
+      left: clamp(0.7rem, 1.8vw, 1.8rem);
+      top: 50%; transform: translateY(-50%);
+      z-index: 20;
+      display: flex; flex-direction: column; gap: 11px;
     }
 
-    @media(max-width:768px){
-      .split{flex-direction:column;}
-      .carta{max-height:none;}
+    .nav-punto {
+      display: flex; align-items: center; gap: 9px;
+      cursor: pointer; text-decoration: none;
+      color: rgba(255,255,255,0.28);
+      font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; transition: color 0.3s;
     }
+    .nav-punto::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      flex-shrink: 0; transition: all 0.3s;
+    }
+    .nav-punto:hover, .nav-punto.activo { color: var(--rosa-claro); }
+    .nav-punto:hover::before, .nav-punto.activo::before {
+      background: var(--rosa-claro);
+      box-shadow: 0 0 7px var(--rosa);
+    }
+
+    @media (max-width: 700px) { .nav-meses { display: none; } }
+
+    /* ── cabecera diario ── */
+    .diario-header {
+      max-width: 640px; margin: 0 auto;
+      padding: 5rem 0 4rem; text-align: center;
+    }
+    .diario-header .label {
+      font-size: 0.66rem; letter-spacing: 0.24em;
+      text-transform: uppercase; opacity: 0.3;
+      margin-bottom: 1.2rem;
+    }
+    .diario-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 300; line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    .diario-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.05rem;
+      opacity: 0.4; line-height: 1.9;
+    }
+
+    /* ── separador ── */
+    .sep {
+      display: flex; align-items: center; gap: 1.4rem;
+      max-width: 440px; margin: 4rem auto;
+      opacity: 0.18;
+    }
+    .sep::before, .sep::after {
+      content: ''; flex: 1; height: 1px; background: #fff;
+    }
+    .sep span { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
+
+    /* ════════════════
+       CAPÍTULOS
+    ════════════════ */
+    .capitulo {
+      max-width: 1040px; margin: 0 auto 7rem;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.95s ease, transform 0.95s ease;
+    }
+    .capitulo.visible { opacity: 1; transform: translateY(0); }
+
+    .mes-header {
+      display: flex; align-items: center; gap: 1.8rem;
+      margin-bottom: 2.8rem; padding-bottom: 1.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .mes-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      font-weight: 300; line-height: 1;
+      color: rgba(255,255,255,0.055);
+      letter-spacing: -0.02em; flex-shrink: 0;
+    }
+
+    .mes-nombre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+      font-weight: 300; letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+    }
+    .mes-nombre em { font-style: italic; color: var(--rosa-claro); opacity: 0.8; }
+
+    .mes-ano {
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; opacity: 0.28;
+    }
+
+    /* ── layout carta + carrusel ── */
+    .mes-contenido {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; align-items: start;
+    }
+    @media (max-width: 768px) { .mes-contenido { grid-template-columns: 1fr; } }
+
+    /* ── entradas ── */
+    .entradas { display: flex; flex-direction: column; gap: 2rem; }
+
+    .entrada {
+      background: rgba(255,255,255,0.056);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 1.8rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .entrada::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--rosa), transparent);
+      opacity: 0.35;
+    }
+
+    .entrada-fecha {
+      font-size: 0.62rem; letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rosa-claro); opacity: 0.6;
+      margin-bottom: 1.1rem;
+    }
+
+    .entrada-texto {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; line-height: 2.05;
+      opacity: 0.88; white-space: pre-wrap;
+    }
+    .entrada-texto em { font-style: italic; opacity: 0.72; }
+
+    /* ── carrusel ── */
+    .carrusel-wrap {
+      position: sticky; top: 2rem;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .carrusel {
+      position: relative; overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 4/5; background: #0a050a;
+    }
+
+    .carrusel img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; top: 0; left: 0;
+      opacity: 0; transition: opacity 1.2s ease-in-out;
+    }
+    .carrusel img.active { opacity: 1; }
+
+    .flecha {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; width: 34px; height: 34px;
+      border-radius: 50%; z-index: 3; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; transition: background 0.2s;
+    }
+    .flecha:hover { background: rgba(0,0,0,0.75); }
+    .flecha.izq { left: 10px; }
+    .flecha.der { right: 10px; }
+
+    .dots { display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); border: none;
+      cursor: pointer; padding: 0;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active { background: var(--rosa-claro); transform: scale(1.4); }
+
+    /* ── coda ── */
+    .coda {
+      max-width: 580px; margin: 5rem auto 2rem;
+      text-align: center;
+    }
+    .coda p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem; line-height: 2.1; opacity: 0.5;
+    }
+    .coda em { font-style: italic; }
+    .coda .firma {
+      margin-top: 2.5rem; font-size: 0.62rem;
+      letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.2;
+    }
+
+    /* ── música ── */
+    #musicBtn {
+      position: fixed; bottom: 22px; right: 22px; z-index: 30;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      color: #fff; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    #musicBtn:hover { background: rgba(255,255,255,0.17); }
+
+    #musicHint {
+      position: fixed; bottom: 76px; right: 22px; z-index: 30;
+      background: rgba(18,6,12,0.92);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 8px 14px;
+      font-size: 0.74rem; line-height: 1.5;
+      max-width: 175px; text-align: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s;
+    }
+    #musicHint.show { opacity: 1; }
   </style>
 </head>
-
 <body>
 
+<div id="velo"></div>
 <canvas id="particles"></canvas>
 
-<div class="overlay">
-
-  <div class="inicio" id="inicio">
-    <h1>mi sueño con ella</h1>
-    <p>Un sueño bonito… nada más</p>
-    <button id="btnEntrar">Entrar</button>
-  </div>
-
-  <div class="contenido" id="contenido">
-
-    <div class="split">
-
-      <div class="carta" id="typewriter"></div>
-
-      <div class="carrusel">
-        <button class="flecha izq" id="prevBtn">❮</button>
-
-        <img src="assets/fotos/foto1.jpg" class="active">
-        <img src="assets/fotos/foto2.jpg">
-        <img src="assets/fotos/foto3.jpg">
-        <img src="assets/fotos/foto4.jpg">
-        <img src="assets/fotos/foto5.jpg">
-        <img src="assets/fotos/foto6.jpg">
-        <img src="assets/fotos/foto7.jpg">
-        <img src="assets/fotos/foto8.jpg">
-
-        <button class="flecha der" id="nextBtn">❯</button>
-      </div>
-
-    </div>
-
-    <div class="cierre">
-      <p>Mi recuerdo.</p>
-      <p>Gracias por lo que fue, por lo que enseñó, y por lo que ya no tenía que ser.</p>
-      <p><em>Enero de 2026.</em></p>
-    </div>
-
+<!-- PORTADA -->
+<div class="capa" id="portada-wrap">
+  <div id="portada">
+    <span class="portada-num-fondo" aria-hidden="true">VII</span>
+    <p class="portada-eyebrow">octubre 2025 &nbsp;—&nbsp; mayo 2026</p>
+    <h1>Un diario<br>sin destinatario</h1>
+    <p class="portada-sub">todo lo que no te dije</p>
+    <div class="linea-portada"></div>
+    <button class="btn-abrir" id="btnAbrir">Abrir el diario</button>
   </div>
 </div>
 
-<button id="musicButton">🎵</button>
-<audio id="bgMusic" src="assets/musica/musica.mp3" loop></audio>
+<!-- DIARIO -->
+<div class="capa" id="diario">
 
-<script>
-  const inicio=document.getElementById("inicio");
-  const contenido=document.getElementById("contenido");
-  const btnEntrar=document.getElementById("btnEntrar");
-  const typewriter=document.getElementById("typewriter");
-  const music=document.getElementById("bgMusic");
+  <nav class="nav-meses" aria-label="Ir a mes">
+    <a class="nav-punto" data-target="enero">Enero</a>
+    <a class="nav-punto" data-target="febrero">Febrero</a>
+    <a class="nav-punto" data-target="marzo">Marzo</a>
+    <a class="nav-punto" data-target="abril">Abril</a>
+    <a class="nav-punto" data-target="mayo">Mayo</a>
+  </nav>
 
-  const mensaje=`Esta página fue un regalo.
+  <header class="diario-header">
+    <p class="label">Diario personal · 2025 – 2026</p>
+    <h2>Lo que quedó<br>después de octubre</h2>
+    <p>Esto no es para que lo leas.<br>Es para que no se me olvide que lo viví.</p>
+  </header>
+
+  <div class="sep"><span>✦</span></div>
+
+  <!-- ══ ENERO ══ -->
+  <section class="capitulo" id="enero">
+    <div class="mes-header">
+      <span class="mes-num" aria-hidden="true">01</span>
+      <div>
+        <h3 class="mes-nombre"><em>Enero</em> — El peso de lo que ya fue</h3>
+        <p class="mes-ano">2026</p>
+      </div>
+    </div>
+    <div class="mes-contenido">
+      <div class="entradas">
+        <div class="entrada">
+          <p class="entrada-fecha">Enero · 2026</p>
+          <p class="entrada-texto">Esta página fue un regalo.
 Hoy sigue siéndolo.
 
 Muchas veces las personas tenemos que irnos
@@ -215,6 +409,7 @@ para cuidar la paz y tranquilidad
 de la persona que amamos,
 aunque duela,
 aunque por dentro nos destroce.
+
 Puedo decir que la extraño.
 
 No te busqué.
@@ -222,45 +417,554 @@ No te llamé.
 Porque amar también es respetar.
 
 Si alguna vez lo ves,
-solo quería que supieras eso.`;
+solo quería que supieras eso.</p>
+        </div>
+      </div>
+      <div class="carrusel-wrap">
+        <div class="carrusel" role="region" aria-label="Fotos de enero">
+          <button class="flecha izq" aria-label="Anterior">&#10094;</button>
+          <img src="assets/fotos/foto1.jpg" class="active" alt="Recuerdo 1">
+          <img src="assets/fotos/foto2.jpg" alt="Recuerdo 2">
+          <img src="assets/fotos/foto3.jpg" alt="Recuerdo 3">
+          <img src="assets/fotos/foto4.jpg" alt="Recuerdo 4">
+          <button class="flecha der" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
 
-  let i=0;
-  function escribir(){
-    if(i<mensaje.length){
-      typewriter.textContent+=mensaje.charAt(i);
-      i++;
-      setTimeout(escribir,55);
+  <div class="sep"><span>✦</span></div>
+
+  <!-- ══ FEBRERO ══ -->
+  <section class="capitulo" id="febrero">
+    <div class="mes-header">
+      <span class="mes-num" aria-hidden="true">02</span>
+      <div>
+        <h3 class="mes-nombre"><em>Febrero</em> — El parque todavía huele a ti</h3>
+        <p class="mes-ano">2026</p>
+      </div>
+    </div>
+    <div class="mes-contenido">
+      <div class="entradas">
+        <div class="entrada">
+          <p class="entrada-fecha">Febrero · 2026</p>
+          <p class="entrada-texto">Hoy, como otros días,
+vine a los alrededores de su casa.
+
+Con esa vana y tonta ilusión
+de cruzármela,
+o solo verla a lo lejos.
+
+Sabiendo que en cualquier momento la veré
+pero estará acompañada,
+de algún amigo,
+o quizás algo más.
+
+Aún así sigo viniendo,
+porque en este parque
+pasamos tantas cosas.
+
+Dicen que el tiempo cura todo
+y posiblemente sea así,
+pero si tengo algo seguro
+es que esto que siento no se irá,
+porque me conozco.
+
+Solo me queda vivir de esto
+y entender que todo fue el fin.
+
+Y aunque haya distracciones
+y por momentos parezca que todo está bien,
+en realidad no está.
+Nada está bien en mí.
+
+No tengo sentido ni rumbo.
+Solo hago las cosas mecánicamente.
+Trabajar, comer, caminar,
+todo es mecánico,
+porque ya nada importa.
+
+No me importa si trabajo,
+si como,
+si río,
+si duermo.
+Ya nada importa.</p>
+        </div>
+      </div>
+      <div class="carrusel-wrap">
+        <div class="carrusel" role="region" aria-label="Fotos de febrero">
+          <button class="flecha izq" aria-label="Anterior">&#10094;</button>
+          <img src="assets/fotos/foto5.jpg" class="active" alt="Recuerdo 5">
+          <img src="assets/fotos/foto6.jpg" alt="Recuerdo 6">
+          <img src="assets/fotos/foto7.jpg" alt="Recuerdo 7">
+          <img src="assets/fotos/foto8.jpg" alt="Recuerdo 8">
+          <button class="flecha der" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"><span>✦</span></div>
+
+  <!-- ══ MARZO ══ -->
+  <section class="capitulo" id="marzo">
+    <div class="mes-header">
+      <span class="mes-num" aria-hidden="true">03</span>
+      <div>
+        <h3 class="mes-nombre"><em>Marzo</em> — Perderla otra vez</h3>
+        <p class="mes-ano">2026</p>
+      </div>
+    </div>
+    <div class="mes-contenido">
+      <div class="entradas">
+
+        <div class="entrada">
+          <p class="entrada-fecha">26 de marzo · 2026</p>
+          <p class="entrada-texto">Hoy mientras divagaba en Facebook
+vi una publicación que me llamó la atención
+porque decía su nombre.
+
+Al leerla sentí como todo dentro de mí se apretaba,
+como si algo ya supiera
+que no iba a poder con lo que venía después.
+
+Seguí leyendo y vi:
+<em>"busco departamento para pareja, son mascotas."</em>
+
+En ese momento mi corazón se aceleró demasiado.
+Sentí que me faltaba el aire.
+Me empezó a recorrer un frío por el cuerpo
+y mi cabeza se llenó de ideas que no podía parar,
+imágenes de ella con alguien más,
+viviendo algo que alguna vez imaginé conmigo.
+
+Como si de pronto me hubiera quedado viendo
+una vida que ya no es mía.
+
+Me quedé paralizado sin saber qué hacer,
+como si el tiempo siguiera
+pero yo me hubiera quedado atrapado en ese instante,
+en esa publicación,
+en todo lo que significaba.
+
+Y lo único que quería era escapar,
+dejar de sentir aunque sea por un rato.
+
+Porque lo que sentí hoy no fue solo tristeza.
+Fue como perderla otra vez,
+pero de una forma más real,
+más clara,
+más imposible de negar.
+
+Y lo peor es que no puedo hacer nada.
+Solo quedarme aquí
+sintiendo cómo su vida sigue avanzando sin mí,
+mientras yo sigo atrapado en lo que fuimos,
+como si una parte de mí
+se hubiera quedado con ella
+y nunca hubiera vuelto.</p>
+        </div>
+
+        <div class="entrada">
+          <p class="entrada-fecha">29 de marzo · 2026</p>
+          <p class="entrada-texto">Sé que está mal,
+pero cada ciertos días termino cayendo otra vez
+y entro a su Instagram.
+
+Es como lo único que me queda de ella,
+como una forma triste de sentir
+que aún existe en mi mundo,
+aunque ya no esté en mi vida.
+
+Y duele,
+porque la veo seguir, avanzar, sonreír,
+mientras yo sigo aquí,
+atrapado en lo que fuimos,
+sin poder soltarla de verdad.
+
+A veces mi cabeza me traiciona
+y me inventa historias donde la encuentro,
+donde me busca,
+donde todo vuelve a ser como antes.
+
+Pero en el fondo sé que no va a pasar.
+
+Porque aunque intento convencerme
+de que lo mejor es respetar eso,
+por ella y por mí,
+hay algo dentro que no se apaga,
+que la sigue amando como el primer día.
+
+Y es ahí cuando todo pesa más.
+Porque no importa cuánto intente avanzar,
+su ausencia sigue ahí,
+rompiéndome por dentro en silencio.
+
+Muchas veces, cuando veo a alguien
+con una silueta parecida a la suya,
+siento un golpe en el pecho que me deja sin aire.
+Si está con alguien, el corazón se me hace pedazos.
+Y si está sola,
+me invade un miedo horrible de encontrarla de verdad,
+de no saber qué decir,
+de no saber cómo mirarla
+sin que todo lo que siento se me desborde.
+
+Porque aunque intente negarlo,
+aunque trate de seguir,
+siento que la amo demasiado.
+Y eso es lo que más me duele.
+
+<em>Mientras escribo empieza a temblar mi mano.
+Ya no lloro,
+pero el pecho me aprieta
+como si algo me exprimiera fuerte
+y no me dejara respirar.</em></p>
+        </div>
+
+        <div class="entrada">
+          <p class="entrada-fecha">29 de marzo · más tarde</p>
+          <p class="entrada-texto">Hay algo que no me deja en paz,
+algo que me pesa más que todo lo demás:
+la decepción.
+
+Fueron tantas cosas que me dijo,
+tantas cosas que me hizo creer,
+que a veces no sé qué fue real y qué no.
+
+Me dijo que no se entregaba fácilmente a otra persona.
+Me dijo que no debía contar mis cosas
+porque eso lo hacen las personas que buscan atención.
+Esas palabras se me quedaron marcadas,
+me hicieron cerrarme,
+callarme,
+tragarme todo.
+
+Y aun así, cuando todo terminó,
+fue ella la que salió a contarlo.
+Ella la que se apoyó en sus amigos,
+la que salía, la que se distraía, la que vivía.
+
+Y yo aquí,
+aguantando todo en silencio,
+tratando de no romperme,
+viendo cómo ella a los pocos días
+ya estaba afuera,
+en discotecas, en reuniones.
+
+Hoy escucho canciones que ella cantaba.
+<em>The Way It Was.</em>
+Y cuando leo la traducción
+siento que todo me habla de nosotros,
+de lo que fuimos,
+de lo que se rompió.
+
+Y me quedo ahí, escuchando una y otra vez,
+hundiéndome en esos recuerdos,
+como si no quisiera salir del dolor
+porque es lo único que todavía me conecta con ella.
+
+Al final termino así,
+sin saber qué pensar,
+sin saber qué sentir,
+sin saber qué hacer con mi vida.</p>
+        </div>
+
+      </div>
+      <div class="carrusel-wrap">
+        <div class="carrusel" role="region" aria-label="Fotos de marzo">
+          <button class="flecha izq" aria-label="Anterior">&#10094;</button>
+          <img src="assets/fotos/foto3.jpg" class="active" alt="Recuerdo 3">
+          <img src="assets/fotos/foto6.jpg" alt="Recuerdo 6">
+          <img src="assets/fotos/foto1.jpg" alt="Recuerdo 1">
+          <img src="assets/fotos/foto7.jpg" alt="Recuerdo 7">
+          <button class="flecha der" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"><span>✦</span></div>
+
+  <!-- ══ ABRIL ══ -->
+  <section class="capitulo" id="abril">
+    <div class="mes-header">
+      <span class="mes-num" aria-hidden="true">04</span>
+      <div>
+        <h3 class="mes-nombre"><em>Abril</em> — Aprender a cargar con esto</h3>
+        <p class="mes-ano">2026</p>
+      </div>
+    </div>
+    <div class="mes-contenido">
+      <div class="entradas">
+        <div class="entrada">
+          <p class="entrada-fecha">Abril · 2026</p>
+          <p class="entrada-texto">Ya no sé si esto es duelo
+o si simplemente así soy yo
+cuando amo algo de verdad.
+
+Hay días en que me levanto
+y el primer pensamiento es ella.
+No como una tortura,
+sino como una costumbre que el cuerpo no suelta.
+
+Como cuando extrañas un lugar
+al que sabes que no puedes volver,
+pero igual lo recuerdas con exactitud:
+la textura del aire,
+el olor de las tardes,
+la forma en que el tiempo se sentía distinto ahí.
+
+Así la extraño.
+
+No con desesperación. Ya no.
+Sino con esa resignación tranquila
+de quien aprendió que algunas cosas no tienen remedio,
+y que no tenerlo no las hace menos reales.
+
+Este mes intenté distraerme más.
+Salir, hablar, ocupar las manos.
+Y a veces funciona,
+por horas,
+a veces por días enteros.
+
+Pero siempre hay algo,
+una canción,
+una calle,
+un olor,
+que me devuelve.
+
+Y ya no lucho contra eso.
+Solo lo dejo pasar.
+
+Como deja pasar el agua
+una piedra que lleva años en el río,
+sin moverse,
+pero ya sin resistir.</p>
+        </div>
+      </div>
+      <div class="carrusel-wrap">
+        <div class="carrusel" role="region" aria-label="Fotos de abril">
+          <button class="flecha izq" aria-label="Anterior">&#10094;</button>
+          <img src="assets/fotos/foto2.jpg" class="active" alt="Recuerdo 2">
+          <img src="assets/fotos/foto4.jpg" alt="Recuerdo 4">
+          <img src="assets/fotos/foto5.jpg" alt="Recuerdo 5">
+          <img src="assets/fotos/foto8.jpg" alt="Recuerdo 8">
+          <button class="flecha der" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"><span>✦</span></div>
+
+  <!-- ══ MAYO ══ -->
+  <section class="capitulo" id="mayo">
+    <div class="mes-header">
+      <span class="mes-num" aria-hidden="true">05</span>
+      <div>
+        <h3 class="mes-nombre"><em>Mayo</em> — Todavía aquí</h3>
+        <p class="mes-ano">2026</p>
+      </div>
+    </div>
+    <div class="mes-contenido">
+      <div class="entradas">
+        <div class="entrada">
+          <p class="entrada-fecha">2 de mayo · 2026</p>
+          <p class="entrada-texto">Han pasado siete meses.
+
+No los conté para hacer poesía,
+los conté porque los sentí,
+uno a uno,
+cada mañana que abrí los ojos
+y el peso seguía ahí.
+
+Hoy escribo esto
+y no sé si es un cierre
+o solo otro capítulo sin título.
+
+Sé que la sigo extrañando.
+Eso no ha cambiado.
+Tal vez no cambie nunca del todo.
+Y ya aprendí a no pelearme con eso.
+
+Lo que sí sé
+es que esta página,
+este diario,
+estas palabras que escribí para nadie
+y que de alguna manera son solo mías,
+
+son la prueba de que estuve aquí.
+De que amé de verdad.
+De que algo tan grande
+merece al menos
+el espacio de ser escrito.
+
+No sé qué viene.
+No tengo respuestas.
+
+Solo sé que mañana
+me voy a levantar otra vez.
+Y que eso,
+aunque suene a poco,
+ya es suficiente.</p>
+        </div>
+      </div>
+      <div class="carrusel-wrap">
+        <div class="carrusel" role="region" aria-label="Fotos de mayo">
+          <button class="flecha izq" aria-label="Anterior">&#10094;</button>
+          <img src="assets/fotos/foto1.jpg" class="active" alt="Recuerdo 1">
+          <img src="assets/fotos/foto3.jpg" alt="Recuerdo 3">
+          <img src="assets/fotos/foto5.jpg" alt="Recuerdo 5">
+          <img src="assets/fotos/foto7.jpg" alt="Recuerdo 7">
+          <button class="flecha der" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"><span>✦</span></div>
+
+  <div class="coda">
+    <p>
+      Este diario no tiene destinatario<br>
+      porque nunca fue pensado para ser leído.<br>
+      <em>Fue pensado para sobrevivir.</em>
+    </p>
+    <p class="firma">octubre 2025 — mayo 2026 &nbsp;·&nbsp; escrito en silencio</p>
+  </div>
+
+</div>
+
+<button id="musicBtn" aria-label="Reproducir o pausar música">▶</button>
+<div id="musicHint">Toca para escuchar la música</div>
+<audio id="bgMusic" src="assets/musica/musica.mp3" loop></audio>
+
+<script>
+/* ── PARTÍCULAS ── */
+(function(){
+  const c=document.getElementById('particles'),ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  function init(){
+    pts=[];
+    const n=Math.floor((W*H)/13000);
+    for(let i=0;i<n;i++) pts.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:Math.random()*1.4+0.3,
+      vy:-(Math.random()*0.28+0.06),
+      vx:(Math.random()-0.5)*0.14,
+      a:Math.random()*0.5+0.15,
+      da:(Math.random()-0.5)*0.0022
+    });
+  }
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.a+=p.da;
+      if(p.a<0.05) p.da=Math.abs(p.da);
+      if(p.a>0.72) p.da=-Math.abs(p.da);
+      if(p.y<-6) p.y=H+6;
+      if(p.x<-6) p.x=W+6;
+      if(p.x>W+6) p.x=-6;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(225,170,190,${p.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('resize',()=>{resize();init();});
+  resize();init();loop();
+})();
+
+/* ── PORTADA ── */
+const portadaWrap=document.getElementById('portada-wrap');
+const diario=document.getElementById('diario');
+const music=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+const musicHint=document.getElementById('musicHint');
+
+document.getElementById('btnAbrir').addEventListener('click',()=>{
+  portadaWrap.style.transition='opacity 0.9s ease';
+  portadaWrap.style.opacity='0';
+  setTimeout(()=>{
+    portadaWrap.style.display='none';
+    diario.classList.add('visible');
+    iniciarCarruseles();
+    iniciarReveal();
+    iniciarNav();
+  },900);
+  music.play().then(()=>{ musicBtn.textContent='⏸'; }).catch(()=>{
+    musicHint.classList.add('show');
+    setTimeout(()=>musicHint.classList.remove('show'),4500);
+  });
+});
+
+musicBtn.addEventListener('click',()=>{
+  if(music.paused){ music.play(); musicBtn.textContent='⏸'; }
+  else { music.pause(); musicBtn.textContent='▶'; }
+});
+
+/* ── CARRUSELES ── */
+function iniciarCarruseles(){
+  document.querySelectorAll('.carrusel').forEach(car=>{
+    const imgs=car.querySelectorAll('img');
+    const dotsEl=car.closest('.carrusel-wrap').querySelector('.dots');
+    let idx=0,timer;
+    imgs.forEach((_,k)=>{
+      const b=document.createElement('button');
+      b.className='dot'+(k===0?' active':'');
+      b.setAttribute('aria-label',`Foto ${k+1}`);
+      b.addEventListener('click',()=>{ ir(k); reset(); });
+      dotsEl.appendChild(b);
+    });
+    const db=dotsEl.querySelectorAll('.dot');
+    function ir(n){
+      imgs[idx].classList.remove('active'); db[idx].classList.remove('active');
+      idx=(n+imgs.length)%imgs.length;
+      imgs[idx].classList.add('active'); db[idx].classList.add('active');
     }
-  }
+    function reset(){ clearInterval(timer); timer=setInterval(()=>ir(idx+1),4500); }
+    car.querySelector('.izq').addEventListener('click',()=>{ ir(idx-1); reset(); });
+    car.querySelector('.der').addEventListener('click',()=>{ ir(idx+1); reset(); });
+    reset();
+  });
+}
 
-  btnEntrar.onclick=()=>{
-    inicio.style.display="none";
-    contenido.style.display="block";
-    if(typewriter.textContent==="") escribir();
-    if(music.paused) music.play().catch(()=>{});
-  };
+/* ── SCROLL REVEAL ── */
+function iniciarReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.07});
+  document.querySelectorAll('.capitulo').forEach(c=>obs.observe(c));
+}
 
-  document.getElementById("musicButton").onclick=()=>{
-    music.paused?music.play():music.pause();
-  };
-
-  let index=0;
-  const fotos=document.querySelectorAll(".carrusel img");
-  const prevBtn=document.getElementById("prevBtn");
-  const nextBtn=document.getElementById("nextBtn");
-
-  function render(){
-    fotos.forEach((img,k)=>img.classList.toggle("active",k===index));
-  }
-
-  prevBtn.onclick=()=>{if(index>0){index--;render();}};
-  nextBtn.onclick=()=>{if(index<fotos.length-1){index++;render();}};
-
-  setInterval(()=>{
-    index=(index+1)%fotos.length;
-    render();
-  },4500);
+/* ── NAV ACTIVA ── */
+function iniciarNav(){
+  const puntos=document.querySelectorAll('.nav-punto');
+  puntos.forEach(p=>{
+    p.addEventListener('click',ev=>{
+      ev.preventDefault();
+      const t=document.getElementById(p.dataset.target);
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const link=document.querySelector(`.nav-punto[data-target="${e.target.id}"]`);
+      if(link) link.classList.toggle('activo',e.isIntersecting);
+    });
+  },{threshold:0.2});
+  ['enero','febrero','marzo','abril','mayo'].forEach(id=>{
+    const s=document.getElementById(id); if(s) obs.observe(s);
+  });
+}
 </script>
-
 </body>
 </html>
